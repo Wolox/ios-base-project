@@ -1,0 +1,7 @@
+coverage_service: coveralls
+xcodeproj: ./BaseProject.xcodeproj
+ci_service: travis_pro
+coverage_access_token: 
+ignore:
+  - BaseProjectTests/*
+  - BaseProjectUITests/*
