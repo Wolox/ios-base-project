@@ -1,4 +1,4 @@
-## Sumary ##
+## Summary ##
 **Trello card**: https://trello.com/b/THE_PROJECT_BOARD/THE_CARD
 
 A brief description of the pull request
