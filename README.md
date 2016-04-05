@@ -4,7 +4,7 @@
 %project-ci-badge
 %project-coverage-badge
 
-This is the repository for the Syrmo's iOS application.
+%project-description
 
 # Project info & resources
 
