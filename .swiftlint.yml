@@ -1,5 +1,6 @@
 disabled_rules: # rule identifiers to exclude from running
   - trailing_whitespace
+  - variable_name
 excluded: # paths to ignore during linting. overridden by `included`.
   - Carthage
   - BaseProjectTests
