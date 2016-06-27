@@ -13,13 +13,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    private func isRunningInTestEnv() -> Bool {
-        return NSProcessInfo.processInfo().environment["ENVIRONMENT"]!.lowercaseString == "test"
-    }
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        if self.isRunningInTestEnv() {
-            return false
+        if Environment.isTestTarget {
+            return true
         }
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
