@@ -24,6 +24,9 @@
 		9D6E405C1CB1B93A008CE558 /* Rex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6E40571CB1B93A008CE558 /* Rex.framework */; };
 		CEB934DD1D21992100DF75C2 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB934DC1D21992100DF75C2 /* Environment.swift */; };
 		CEB934E31D21AA0300DF75C2 /* production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CEB934E21D21A4AB00DF75C2 /* production.xcconfig */; };
+		CEB934E41D21B9BD00DF75C2 /* development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CEB934DF1D21A47200DF75C2 /* development.xcconfig */; };
+		CEB934E51D21B9BD00DF75C2 /* beta.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CEB934E01D21A49000DF75C2 /* beta.xcconfig */; };
+		CEB934E61D21B9BD00DF75C2 /* alpha.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -301,6 +304,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEB934E41D21B9BD00DF75C2 /* development.xcconfig in Resources */,
+				CEB934E51D21B9BD00DF75C2 /* beta.xcconfig in Resources */,
+				CEB934E61D21B9BD00DF75C2 /* alpha.xcconfig in Resources */,
 				CEB934E31D21AA0300DF75C2 /* production.xcconfig in Resources */,
 				9D15750F1CB1B27500EA395E /* LaunchScreen.storyboard in Resources */,
 				9D15750C1CB1B27500EA395E /* Assets.xcassets in Resources */,
@@ -458,7 +464,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* development.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-development";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -544,7 +550,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-alpha";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -630,7 +636,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* beta.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-beta";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -715,7 +721,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* production.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-production";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
