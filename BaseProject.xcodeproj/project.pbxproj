@@ -23,6 +23,7 @@
 		9D6E405B1CB1B93A008CE558 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6E40561CB1B93A008CE558 /* Result.framework */; };
 		9D6E405C1CB1B93A008CE558 /* Rex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6E40571CB1B93A008CE558 /* Rex.framework */; };
 		CEB934DD1D21992100DF75C2 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB934DC1D21992100DF75C2 /* Environment.swift */; };
+		CEB934E31D21AA0300DF75C2 /* production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CEB934E21D21A4AB00DF75C2 /* production.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,10 @@
 		9D6E40561CB1B93A008CE558 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		9D6E40571CB1B93A008CE558 /* Rex.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rex.framework; path = Carthage/Build/iOS/Rex.framework; sourceTree = "<group>"; };
 		CEB934DC1D21992100DF75C2 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		CEB934DF1D21A47200DF75C2 /* development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = development.xcconfig; sourceTree = "<group>"; };
+		CEB934E01D21A49000DF75C2 /* beta.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = beta.xcconfig; sourceTree = "<group>"; };
+		CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = alpha.xcconfig; sourceTree = "<group>"; };
+		CEB934E21D21A4AB00DF75C2 /* production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = production.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +140,7 @@
 		9D1575031CB1B27500EA395E /* BaseProject */ = {
 			isa = PBXGroup;
 			children = (
+				CEB934DE1D21A44700DF75C2 /* ConfigurationFiles */,
 				9D1575041CB1B27500EA395E /* AppDelegate.swift */,
 				9D1575061CB1B27500EA395E /* ViewController.swift */,
 				9D15750B1CB1B27500EA395E /* Assets.xcassets */,
@@ -175,6 +181,17 @@
 				9D6E40571CB1B93A008CE558 /* Rex.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CEB934DE1D21A44700DF75C2 /* ConfigurationFiles */ = {
+			isa = PBXGroup;
+			children = (
+				CEB934DF1D21A47200DF75C2 /* development.xcconfig */,
+				CEB934E01D21A49000DF75C2 /* beta.xcconfig */,
+				CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */,
+				CEB934E21D21A4AB00DF75C2 /* production.xcconfig */,
+			);
+			path = ConfigurationFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,6 +301,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEB934E31D21AA0300DF75C2 /* production.xcconfig in Resources */,
 				9D15750F1CB1B27500EA395E /* LaunchScreen.storyboard in Resources */,
 				9D15750C1CB1B27500EA395E /* Assets.xcassets in Resources */,
 			);
@@ -397,6 +415,7 @@
 /* Begin XCBuildConfiguration section */
 		CE39E8751D1DAED00004FE95 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -428,6 +447,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -436,6 +456,7 @@
 		};
 		CE39E8761D1DAED00004FE95 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* development.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -451,6 +472,7 @@
 		};
 		CE39E8771D1DAED00004FE95 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* development.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -467,6 +489,7 @@
 		};
 		CE39E8781D1DAED00004FE95 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* development.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = BaseProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -478,6 +501,7 @@
 		};
 		CE39E8791D1DAEE70004FE95 /* Alpha */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -509,6 +533,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -517,6 +542,7 @@
 		};
 		CE39E87A1D1DAEE70004FE95 /* Alpha */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -532,6 +558,7 @@
 		};
 		CE39E87B1D1DAEE70004FE95 /* Alpha */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -548,6 +575,7 @@
 		};
 		CE39E87C1D1DAEE70004FE95 /* Alpha */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = BaseProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -559,6 +587,7 @@
 		};
 		CE39E87D1D1DAEED0004FE95 /* Beta */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* beta.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -590,6 +619,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -598,6 +628,7 @@
 		};
 		CE39E87E1D1DAEED0004FE95 /* Beta */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* beta.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -613,6 +644,7 @@
 		};
 		CE39E87F1D1DAEED0004FE95 /* Beta */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* beta.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -629,6 +661,7 @@
 		};
 		CE39E8801D1DAEED0004FE95 /* Beta */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* beta.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = BaseProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -640,6 +673,7 @@
 		};
 		CE39E8811D1DAEF20004FE95 /* Production */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -679,6 +713,7 @@
 		};
 		CE39E8821D1DAEF20004FE95 /* Production */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -694,6 +729,7 @@
 		};
 		CE39E8831D1DAEF20004FE95 /* Production */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* production.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -710,6 +746,7 @@
 		};
 		CE39E8841D1DAEF20004FE95 /* Production */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* production.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = BaseProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
