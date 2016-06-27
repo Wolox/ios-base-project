@@ -465,7 +465,7 @@
 				);
 				INFOPLIST_FILE = BaseProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProject;
+				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProject.development;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Development;
@@ -551,7 +551,7 @@
 				);
 				INFOPLIST_FILE = BaseProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProject;
+				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProject.alpha;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Alpha;
@@ -637,7 +637,7 @@
 				);
 				INFOPLIST_FILE = BaseProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProject;
+				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProject.beta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Beta;
@@ -722,7 +722,7 @@
 				);
 				INFOPLIST_FILE = BaseProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProject;
+				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProject.production;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Production;
