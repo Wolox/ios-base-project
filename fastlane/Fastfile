@@ -1,0 +1,117 @@
+# https://labs.kunstmaan.be/blog/ios-continuous-delivery-with-jenkins-and-fastlane?this-one-is-for-you-roderik
+
+# The env variables are contained in an .env.default file.
+
+# Define the minimal Fastlane version
+fastlane_version "1.95.0"
+
+# Use the iOS platform as default
+default_platform :ios
+
+# Define what to do for the iOS platform
+platform :ios do
+  # Run this before doing anything else
+  before_all do
+
+    # Uncomment this if you don't have the carthage frameworks(if you are deploying from your computer, you can leave this commented).
+    # carthage(
+    #   platform: "iOS",
+    #   use_binaries: false,
+    #   use_ssh: true
+    #   )
+
+  end
+
+  # After all the steps have completed succesfully, run this.
+  after_all do |lane|
+
+    # Remove all build artifacts created by fastlane to upload
+    clean_build_artifacts
+
+  end
+
+  # If there was an error, run this
+  error do |lane, exception|
+
+    # Remove all build artifacts created by fastlane to upload
+    clean_build_artifacts
+
+  end
+
+  # Build and publish the Alpha version to TestFlight
+  lane :release_testflight do
+
+    # We increment the build number. If you are adding fastlane to an existing project, check what the current build is in itunes connect. 
+    # For example, if it is 15, you should set in xcode build number 15 (because increment_build_number increments the build).
+    increment_build_number
+
+    # Build
+    build_app(
+      # Set the app id
+      app_identifier: ENV["APP_IDENTIFIER"],
+      # What configuration to use, usefull for keeping different API keys etc between environments
+      configuration:"Release",
+      # Use this codesigning identity (this is the name of the certificate in your keychain)
+      codesigning_identity:"iPhone Distribution: Sonic Words Inc.",
+      # the projectname, this is the name of the .xcodeproj file and the folder containing your code in the project
+      project_name:"",
+      # the scheme to build
+      scheme: "",
+      # Your team ID
+      team_id: ""
+    )
+
+    upload_dsym_to_rollbar(
+      rollbar_url: 'https://api.rollbar.com/api/1/dsym',
+      access_token: ENV["ROLLBAR_POST_SERVER_ITEM_ACCESS_TOKEN"],
+      version: get_info_plist_value(path: '', key: 'CFBundleVersion'), # complete with info.plist path. ex: 'Project/Info.plist'
+      bundle_identifier: ENV["APP_IDENTIFIER"],
+      dsym: '' # DSYM location with @. Example: '@../wolox.app.dSYM.zip'. @ means that it takes the content of the file.
+    )
+
+    publish_testflight
+
+  end
+
+  private_lane :build_app do |options|
+
+    # Update the app identifier
+    update_app_identifier(
+      xcodeproj: "#{options[:project_name]}.xcodeproj",
+      plist_path: "#{options[:project_name]}/Info.plist",
+      app_identifier: options[:app_identifier]
+    )
+
+    # Download certificates
+    cert
+    # Download provisioning profiles
+    sigh
+
+    # Build the app
+    gym(
+      scheme: "#{options[:scheme]}",
+      configuration: options[:configuration],
+      codesigning_identity: options[:codesigning_identity],
+    )
+
+  end
+
+  # Publish to Testflight
+  private_lane :publish_testflight do |options|
+
+    pilot
+
+  end
+
+  # Uploads dsyms to rollbar
+  private_lane :upload_dsym_to_rollbar do |options|
+    rollbar_url = options[:rollbar_url]
+    access_token = options[:access_token]
+    version = options[:version]
+    bundle_identifier = options[:bundle_identifier]
+    dsym = options[:dsym]
+
+    sh("curl -X POST #{rollbar_url} -F access_token=#{access_token} -F version=#{version} -F bundle_identifier=#{bundle_identifier} -F dsym='#{dsym}'")
+  end
+
+end

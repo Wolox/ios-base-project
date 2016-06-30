@@ -4,3 +4,4 @@ github "neilpa/Rex" ~> 0.9.0
 
 # Utilities
 github "CocoaLumberjack/CocoaLumberjack" ~> 2.2.0
+github "Wolox/wolmo-core-ios" "master"
