@@ -52,13 +52,13 @@ platform :ios do
       # What configuration to use, usefull for keeping different API keys etc between environments
       configuration:"Release",
       # Use this codesigning identity (this is the name of the certificate in your keychain)
-      codesigning_identity:"iPhone Distribution: Sonic Words Inc.",
+      codesigning_identity: ENV["CODE_SIGNING_ENTITY"],
       # the projectname, this is the name of the .xcodeproj file and the folder containing your code in the project
-      project_name:"",
+      project_name: ENV["PROJECT_NAME"],
       # the scheme to build
       scheme: "",
       # Your team ID
-      team_id: ""
+      team_id: ENV["TEAM_ID"]
     )
 
     upload_dsym_to_rollbar(
