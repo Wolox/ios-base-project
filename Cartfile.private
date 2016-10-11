@@ -1,2 +1,2 @@
-github "Quick/Nimble" "master"
-github "Quick/Quick" "master"
+github "Quick/Nimble" ~> 4.1.0
+github "Quick/Quick" ~> 0.9.3
