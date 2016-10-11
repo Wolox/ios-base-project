@@ -17,8 +17,6 @@
 		9D1F7A721CBED81900E20BE5 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1F7A701CBED81900E20BE5 /* Quick.framework */; };
 		9D1F7A741CBED82900E20BE5 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9D1F7A6F1CBED81900E20BE5 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9D1F7A751CBED82900E20BE5 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9D1F7A701CBED81900E20BE5 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9D6E40581CB1B93A008CE558 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6E40531CB1B939008CE558 /* CocoaLumberjack.framework */; };
-		9D6E40591CB1B93A008CE558 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6E40541CB1B939008CE558 /* CocoaLumberjackSwift.framework */; };
 		9D6E405A1CB1B93A008CE558 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6E40551CB1B939008CE558 /* ReactiveCocoa.framework */; };
 		9D6E405B1CB1B93A008CE558 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6E40561CB1B93A008CE558 /* Result.framework */; };
 		9D6E405C1CB1B93A008CE558 /* Rex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6E40571CB1B93A008CE558 /* Rex.framework */; };
@@ -75,8 +73,6 @@
 		9D1575261CB1B27500EA395E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D1F7A6F1CBED81900E20BE5 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		9D1F7A701CBED81900E20BE5 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
-		9D6E40531CB1B939008CE558 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/iOS/CocoaLumberjack.framework; sourceTree = "<group>"; };
-		9D6E40541CB1B939008CE558 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Carthage/Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
 		9D6E40551CB1B939008CE558 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		9D6E40561CB1B93A008CE558 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		9D6E40571CB1B93A008CE558 /* Rex.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rex.framework; path = Carthage/Build/iOS/Rex.framework; sourceTree = "<group>"; };
@@ -92,8 +88,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D6E40581CB1B93A008CE558 /* CocoaLumberjack.framework in Frameworks */,
-				9D6E40591CB1B93A008CE558 /* CocoaLumberjackSwift.framework in Frameworks */,
 				9D6E405A1CB1B93A008CE558 /* ReactiveCocoa.framework in Frameworks */,
 				9D6E405B1CB1B93A008CE558 /* Result.framework in Frameworks */,
 				9D6E405C1CB1B93A008CE558 /* Rex.framework in Frameworks */,
@@ -177,8 +171,6 @@
 			children = (
 				9D1F7A6F1CBED81900E20BE5 /* Nimble.framework */,
 				9D1F7A701CBED81900E20BE5 /* Quick.framework */,
-				9D6E40531CB1B939008CE558 /* CocoaLumberjack.framework */,
-				9D6E40541CB1B939008CE558 /* CocoaLumberjackSwift.framework */,
 				9D6E40551CB1B939008CE558 /* ReactiveCocoa.framework */,
 				9D6E40561CB1B93A008CE558 /* Result.framework */,
 				9D6E40571CB1B93A008CE558 /* Rex.framework */,
@@ -342,8 +334,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ReactiveCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Rex.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
 			);
 			name = Carthage;
 			outputPaths = (
