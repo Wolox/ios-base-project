@@ -1,3 +1,3 @@
 # Core & Functional Programming
 github "ReactiveCocoa/ReactiveCocoa" ~> 4.2.2
-github "RACCommunity/Rex" "master"
+github "RACCommunity/Rex" ~> 0.12
