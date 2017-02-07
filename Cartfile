@@ -1,2 +1,2 @@
-# Core & Functional Programming
-github "ReactiveCocoa/ReactiveCocoa" ~> 5.0
+# Useful extensions
+github "Wolox/wolmo-core-ios" ~> 1.0.3
