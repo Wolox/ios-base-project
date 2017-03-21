@@ -10,31 +10,31 @@ import Foundation
 
 enum Environment {
     
-    case Development
-    case Alpha
-    case Beta
-    case Production
-    case Test
+    case development
+    case alpha
+    case beta
+    case production
+    case test
     
     static var current: Environment {
-        let environment = NSProcessInfo.processInfo().environment["ENVIRONMENT"]!.lowercaseString
+        let environment = ProcessInfo.processInfo.environment["ENVIRONMENT"]!.lowercased()
         if environment == "development" {
-            return .Development
+            return .development
         } else if environment == "alpha" {
-            return .Alpha
+            return .alpha
         } else if environment == "beta" {
-            return .Beta
+            return .beta
         } else if environment == "production" {
-            return .Production
+            return .production
         } else if environment == "test" {
-            return .Test
+            return .test
         } else {
             fatalError("Environment variable ENVIRONMENT isn't set.")
         }
     }
     
     static var isTestTarget: Bool {
-        if case .Test = Environment.current {
+        if case .test = Environment.current {
             return true
         } else {
             return false
