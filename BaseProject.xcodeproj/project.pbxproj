@@ -24,6 +24,9 @@
 		CEB934E41D21B9BD00DF75C2 /* development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CEB934DF1D21A47200DF75C2 /* development.xcconfig */; };
 		CEB934E51D21B9BD00DF75C2 /* beta.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CEB934E01D21A49000DF75C2 /* beta.xcconfig */; };
 		CEB934E61D21B9BD00DF75C2 /* alpha.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */; };
+		CED934881E8466A60017CF96 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED934861E8466A60017CF96 /* Core.framework */; };
+		CED934891E8466A60017CF96 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED934871E8466A60017CF96 /* ReactiveSwift.framework */; };
+		CED9348B1E8466CE0017CF96 /* MBProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED9348A1E8466CE0017CF96 /* MBProgressHUD.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +82,9 @@
 		CEB934E01D21A49000DF75C2 /* beta.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = beta.xcconfig; sourceTree = "<group>"; };
 		CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = alpha.xcconfig; sourceTree = "<group>"; };
 		CEB934E21D21A4AB00DF75C2 /* production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = production.xcconfig; sourceTree = "<group>"; };
+		CED934861E8466A60017CF96 /* Core.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Core.framework; path = Carthage/Build/iOS/Core.framework; sourceTree = "<group>"; };
+		CED934871E8466A60017CF96 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
+		CED9348A1E8466CE0017CF96 /* MBProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MBProgressHUD.framework; path = Carthage/Build/iOS/MBProgressHUD.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +92,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CED9348B1E8466CE0017CF96 /* MBProgressHUD.framework in Frameworks */,
+				CED934881E8466A60017CF96 /* Core.framework in Frameworks */,
+				CED934891E8466A60017CF96 /* ReactiveSwift.framework in Frameworks */,
 				9D6E405A1CB1B93A008CE558 /* ReactiveCocoa.framework in Frameworks */,
 				9D6E405B1CB1B93A008CE558 /* Result.framework in Frameworks */,
 			);
@@ -166,6 +175,9 @@
 		9D6E405F1CB1BA21008CE558 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CED9348A1E8466CE0017CF96 /* MBProgressHUD.framework */,
+				CED934861E8466A60017CF96 /* Core.framework */,
+				CED934871E8466A60017CF96 /* ReactiveSwift.framework */,
 				9D1F7A6F1CBED81900E20BE5 /* Nimble.framework */,
 				9D1F7A701CBED81900E20BE5 /* Quick.framework */,
 				9D6E40551CB1B939008CE558 /* ReactiveCocoa.framework */,
@@ -329,6 +341,9 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ReactiveCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ReactiveSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Core.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/MBProgressHUD.framework",
 			);
 			name = Carthage;
 			outputPaths = (
