@@ -1,9 +1,10 @@
-disabled_rules: # rule identifiers to exclude from running
+disabled_rules:
   - trailing_whitespace
-  - variable_name
-excluded: # paths to ignore during linting. overridden by `included`.
+excluded:
   - Carthage
   - BaseProjectTests
   - BaseProjectUITests
-line_length: 200
+line_length: 120
 function_body_length: 20
+identifier_name:
+  min_length: 2
