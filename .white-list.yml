@@ -1,1 +1,2 @@
 # File for whitelisting frameworks downloaded using carthage_cache: https://github.com/guidomb/carthage_cache
+"Core": "wolmo-core-ios"
