@@ -1,2 +1,2 @@
 # Useful extensions
-github "Wolox/wolmo-core-ios" ~> 1.0.3
+github "Wolox/wolmo-core-ios" "master"
