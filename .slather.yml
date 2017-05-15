@@ -1,5 +1,7 @@
 xcodeproj: ./BaseProject.xcodeproj
 scheme: BaseProject
 ignore:
+  - BaseProject/AppDelegate.swift
+  - BaseProject/Environment.swift
   - BaseProjectTests/*
   - BaseProjectUITests/*
