@@ -26,7 +26,10 @@ Thumbs.db
 .carthage_cache.yml
 Carthage/
 
+# Frameworks
 Frameworks/
 
-.swiftlint-report.json
-
+# Reports
+swiftlint-output/
+slather-output/
+fastlane/test_output/
