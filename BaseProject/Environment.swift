@@ -17,20 +17,18 @@ enum Environment {
     case test
     
     static var current: Environment {
-        let environment = ProcessInfo.processInfo.environment["ENVIRONMENT"]!.lowercased()
-        if environment == "development" {
+        #if DEVELOPMENT
             return .development
-        } else if environment == "alpha" {
+        #endif
+        #if ALPHA
             return .alpha
-        } else if environment == "beta" {
+        #endif
+        #if BETA
             return .beta
-        } else if environment == "production" {
+        #endif
+        #if PRODUCTION
             return .production
-        } else if environment == "test" {
-            return .test
-        } else {
-            fatalError("Environment variable ENVIRONMENT isn't set.")
-        }
+        #endif
     }
     
     static var isTestTarget: Bool {
