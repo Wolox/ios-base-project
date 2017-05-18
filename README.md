@@ -2,7 +2,7 @@
 ----------------
 
 %project-ci-badge
-%project-coverage-badge
+%project-codestats-badge
 
 %project-description
 
