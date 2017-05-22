@@ -8,39 +8,58 @@
 
 import Foundation
 
-enum Environment {
+internal enum Environment {
     
     case development
     case alpha
     case beta
     case production
-    case test
+    
+}
+
+internal extension Environment {
     
     static var current: Environment {
-        let environment = ProcessInfo.processInfo.environment["ENVIRONMENT"]!.lowercased()
-        if environment == "development" {
+        #if DEVELOPMENT
             return .development
-        } else if environment == "alpha" {
+        #endif
+        #if ALPHA
             return .alpha
-        } else if environment == "beta" {
+        #endif
+        #if BETA
             return .beta
-        } else if environment == "production" {
+        #endif
+        #if PRODUCTION
             return .production
-        } else if environment == "test" {
-            return .test
-        } else {
-            fatalError("Environment variable ENVIRONMENT isn't set.")
-        }
+        #endif
     }
+
+}
+
+internal extension Environment {
+    
+    private static let EnvironmentKey = "ENVIRONMENT"
+    
+    // This property should be set in scheme Test action's arguments (environment variables).
+    private static let EnvironmentTest = "Test"
+    
+    // This property should be set in UITests by launchEnvironment arguments.
+    private static let EnvironmentUITest = "UITest"
     
     static var isTestTarget: Bool {
-        if case .test = Environment.current {
-            return true
-        } else {
-            return false
-        }
+        let environment = ProcessInfo.processInfo.environment
+        return environment[Environment.EnvironmentKey] == Environment.EnvironmentTest
     }
     
+    static var isUITestTarget: Bool {
+        let environment = ProcessInfo.processInfo.environment
+        return environment[Environment.EnvironmentKey] == Environment.EnvironmentUITest
+    }
+    
+}
+
+internal extension Environment {
+
     static var isRunningOnSimulator: Bool {
         #if (arch(i386) || arch(x86_64)) && os(iOS)
             return true
