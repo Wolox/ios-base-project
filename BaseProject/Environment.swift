@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal enum Environment {
+internal enum Environment: String {
     
     case development
     case alpha

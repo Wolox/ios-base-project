@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         }
         
+        RollbarService().initialize()
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = ViewController()
         window?.makeKeyAndVisible()

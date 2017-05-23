@@ -1,2 +1,5 @@
 # Useful extensions
 github "Wolox/wolmo-core-ios" "master"
+
+# Miscellaneous
+github "rollbar/rollbar-ios" "master"

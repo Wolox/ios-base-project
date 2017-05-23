@@ -3,5 +3,6 @@ scheme: BaseProject
 ignore:
   - BaseProject/AppDelegate.swift
   - BaseProject/Environment.swift
+  - BaseProject/Services/RollbarService.swift
   - BaseProjectTests/*
   - BaseProjectUITests/*
