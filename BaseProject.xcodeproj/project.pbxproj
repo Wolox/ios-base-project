@@ -74,10 +74,10 @@
 		9D6E40551CB1B939008CE558 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		9D6E40561CB1B93A008CE558 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		CEB934DC1D21992100DF75C2 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		CEB934DF1D21A47200DF75C2 /* development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = development.xcconfig; sourceTree = "<group>"; };
-		CEB934E01D21A49000DF75C2 /* beta.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = beta.xcconfig; sourceTree = "<group>"; };
-		CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = alpha.xcconfig; sourceTree = "<group>"; };
-		CEB934E21D21A4AB00DF75C2 /* production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = production.xcconfig; sourceTree = "<group>"; };
+		CEB934DF1D21A47200DF75C2 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		CEB934E01D21A49000DF75C2 /* Beta.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Beta.xcconfig; sourceTree = "<group>"; };
+		CEB934E11D21A49A00DF75C2 /* Alpha.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Alpha.xcconfig; sourceTree = "<group>"; };
+		CEB934E21D21A4AB00DF75C2 /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
 		CED934861E8466A60017CF96 /* Core.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Core.framework; path = Carthage/Build/iOS/Core.framework; sourceTree = "<group>"; };
 		CED934871E8466A60017CF96 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
 		CED9348A1E8466CE0017CF96 /* MBProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MBProgressHUD.framework; path = Carthage/Build/iOS/MBProgressHUD.framework; sourceTree = "<group>"; };
@@ -185,10 +185,10 @@
 		CEB934DE1D21A44700DF75C2 /* ConfigurationFiles */ = {
 			isa = PBXGroup;
 			children = (
-				CEB934DF1D21A47200DF75C2 /* development.xcconfig */,
-				CEB934E01D21A49000DF75C2 /* beta.xcconfig */,
-				CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */,
-				CEB934E21D21A4AB00DF75C2 /* production.xcconfig */,
+				CEB934DF1D21A47200DF75C2 /* Development.xcconfig */,
+				CEB934E11D21A49A00DF75C2 /* Alpha.xcconfig */,
+				CEB934E01D21A49000DF75C2 /* Beta.xcconfig */,
+				CEB934E21D21A4AB00DF75C2 /* Production.xcconfig */,
 			);
 			path = ConfigurationFiles;
 			sourceTree = "<group>";
@@ -416,7 +416,7 @@
 /* Begin XCBuildConfiguration section */
 		CE39E8751D1DAED00004FE95 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* development.xcconfig */;
+			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -461,7 +461,7 @@
 		};
 		CE39E8761D1DAED00004FE95 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* development.xcconfig */;
+			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* Development.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-development";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -479,7 +479,7 @@
 		};
 		CE39E8771D1DAED00004FE95 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* development.xcconfig */;
+			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* Development.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -497,7 +497,7 @@
 		};
 		CE39E8781D1DAED00004FE95 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* development.xcconfig */;
+			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* Development.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = BaseProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -510,7 +510,7 @@
 		};
 		CE39E8791D1DAEE70004FE95 /* Alpha */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */;
+			baseConfigurationReference = CEB934E11D21A49A00DF75C2 /* Alpha.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -554,7 +554,7 @@
 		};
 		CE39E87A1D1DAEE70004FE95 /* Alpha */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */;
+			baseConfigurationReference = CEB934E11D21A49A00DF75C2 /* Alpha.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-alpha";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -572,7 +572,7 @@
 		};
 		CE39E87B1D1DAEE70004FE95 /* Alpha */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */;
+			baseConfigurationReference = CEB934E11D21A49A00DF75C2 /* Alpha.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -590,7 +590,7 @@
 		};
 		CE39E87C1D1DAEE70004FE95 /* Alpha */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E11D21A49A00DF75C2 /* alpha.xcconfig */;
+			baseConfigurationReference = CEB934E11D21A49A00DF75C2 /* Alpha.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = BaseProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -603,7 +603,7 @@
 		};
 		CE39E87D1D1DAEED0004FE95 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* beta.xcconfig */;
+			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* Beta.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -647,7 +647,7 @@
 		};
 		CE39E87E1D1DAEED0004FE95 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* beta.xcconfig */;
+			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* Beta.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-beta";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -665,7 +665,7 @@
 		};
 		CE39E87F1D1DAEED0004FE95 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* beta.xcconfig */;
+			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* Beta.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -683,7 +683,7 @@
 		};
 		CE39E8801D1DAEED0004FE95 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* beta.xcconfig */;
+			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* Beta.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = BaseProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -696,7 +696,7 @@
 		};
 		CE39E8811D1DAEF20004FE95 /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* production.xcconfig */;
+			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* Production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -739,7 +739,7 @@
 		};
 		CE39E8821D1DAEF20004FE95 /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* production.xcconfig */;
+			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* Production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-production";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -757,7 +757,7 @@
 		};
 		CE39E8831D1DAEF20004FE95 /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* production.xcconfig */;
+			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* Production.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -775,7 +775,7 @@
 		};
 		CE39E8841D1DAEF20004FE95 /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* production.xcconfig */;
+			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* Production.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = BaseProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
