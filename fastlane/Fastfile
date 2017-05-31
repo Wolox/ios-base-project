@@ -3,13 +3,42 @@
 # The env variables are contained in an .env.default file.
 
 # Define the minimal Fastlane version
-fastlane_version "1.95.0"
+fastlane_version "2.35.1"
 
 # Use the iOS platform as default
 default_platform :ios
 
+# Default path formatters
+project_xcconfig_path = "%s/ConfigurationFiles/%s.xcconfig"
+dsym_zip_path = "%s.app.dSYM.zip"
+
+# Default build configuration by action
+build_configurations = {
+  test: "Development",
+  qa: "Alpha",
+  testflight: "Beta",
+  release: "Production"
+}
+
+# Default match types by build configuration
+match_types = {
+  test: "development",
+  qa: "adhoc",
+  testflight: "appstore",
+  release: "appstore"
+}
+
+# Default App ID names by build configuration
+app_names = {
+  test: "%s Dev",
+  qa: "%s Alpha",
+  testflight: "%s",
+  release: "%s"
+}
+
 # Define what to do for the iOS platform
 platform :ios do
+
   # Run this before doing anything else
   before_all do
 
@@ -18,7 +47,7 @@ platform :ios do
     #   platform: "iOS",
     #   use_binaries: false,
     #   use_ssh: true
-    #   )
+    # )
 
   end
 
@@ -38,80 +67,149 @@ platform :ios do
 
   end
 
-  # Build and publish the Alpha version to TestFlight
+  # Build and publish version to TestFlight
   lane :release_testflight do
-
     # We increment the build number. If you are adding fastlane to an existing project, check what the current build is in itunes connect. 
     # For example, if it is 15, you should set in xcode build number 15 (because increment_build_number increments the build).
     increment_build_number
 
-    # Build
-    build_app(
-      # Set the app id
-      app_identifier: ENV["APP_IDENTIFIER"],
-      # What configuration to use, usefull for keeping different API keys etc between environments
-      configuration:"Release",
-      # Use this codesigning identity (this is the name of the certificate in your keychain)
-      codesigning_identity: ENV["CODE_SIGNING_ENTITY"],
-      # the projectname, this is the name of the .xcodeproj file and the folder containing your code in the project
-      project_name: ENV["PROJECT_NAME"],
-      # the scheme to build
-      scheme: "",
-      # Your team ID
-      team_id: ENV["TEAM_ID"]
+    # Bundle identifier from xCode project
+    bundle_identifier = read_bundle_identifier(
+      build_configuration: build_configurations[:testflight]
     )
 
-    upload_dsym_to_rollbar(
-      rollbar_url: 'https://api.rollbar.com/api/1/dsym',
-      access_token: ENV["ROLLBAR_POST_SERVER_ITEM_ACCESS_TOKEN"],
-      version: get_info_plist_value(path: '', key: 'CFBundleVersion'), # complete with info.plist path. ex: 'Project/Info.plist'
-      bundle_identifier: ENV["APP_IDENTIFIER"],
-      dsym: '' # DSYM location with @. Example: '@../wolox.app.dSYM.zip'. @ means that it takes the content of the file.
+    # Build
+    build_app(
+      app_identifier: bundle_identifier,
+      configuration: build_configurations[:testflight],
+      match_type: match_types[:testflight],
+      project_name: ENV["PROJECT_NAME"]
+    )
+
+    # Get rollbar server access token from configuration file.
+    rollbar_server_access_token = read_xcconfig_property(
+      xcconfig_path: project_xcconfig_path % [ENV['PROJECT_NAME'], build_configurations[:testflight]],
+      xcconfig_key: 'ROLLBAR_SERVER_ACCESS_TOKEN'
+    )
+
+    # Upload dsym to rollbar.
+    upload_dsym(
+      access_token: rollbar_server_access_token,
+      version: get_build_number,
+      bundle_identifier: bundle_identifier,
+      dsym_zip_path: dsym_zip_path % ENV['PROJECT_NAME']
     )
 
     publish_testflight
+  end
+
+  lane :test do
+    # Run scan with default project and scheme
+    scan(
+      configuration: build_configurations[:test],
+      clean: false
+    )
+
+  end
+
+  lane :create_development_app do
+    # Remember after this point to choose this profile in xCode Signing (Development)
+    create_app(
+      app_name: app_names[:development] % ENV['PROJECT_NAME'],
+      build_configuration: build_configurations[:development],
+      team_name: ENV['TEAM_NAME'],
+      skip_itc: true,
+      match_type: match_types[:development],
+    )
+
+    # Remember after this point to choose this profile in xCode Signing (Alpha)
+    create_app(
+      app_name: app_names[:alpha] % ENV['PROJECT_NAME'],
+      build_configuration: build_configurations[:alpha],
+      team_name: ENV['TEAM_NAME'],
+      skip_itc: true,
+      match_type: match_types[:alpha],
+    )
+
+  end
+
+  lane :create_testflight_app do
+    # Remember after this point to choose this profile in xCode Signing (Beta)
+    create_app(
+      app_name: app_names[:beta] % ENV['PROJECT_NAME'],
+      build_configuration: build_configurations[:beta],
+      team_name: ENV['TEAM_NAME'],
+      skip_itc: true,
+      match_type: match_types[:beta],
+    )
+
+  end
+
+  lane :add_device do
+    device_name = prompt(text: 'Enter the device name: ')
+    device_udid = prompt(text: 'Enter the device UDID: ')
+    device_hash = {}
+    device_hash[device_name] = device_udid
+
+    # Register new device.
+    register_devices(
+      devices: device_hash
+    )
+
+    # Refresh provisioning profiles adding the new device.
+    match(
+      force_for_new_devices: true
+    )
 
   end
 
   private_lane :build_app do |options|
-
-    # Update the app identifier
-    update_app_identifier(
-      xcodeproj: "#{options[:project_name]}.xcodeproj",
-      plist_path: "#{options[:project_name]}/Info.plist",
-      app_identifier: options[:app_identifier]
+    # Download provisioning profiles
+    match(
+      app_identifier: options[:app_identifier],
+      type: options[:match_type],
+      readonly: true
     )
 
-    # Download certificates
-    cert
-    # Download provisioning profiles
-    sigh
-
-    # Build the app
+    # Build the app using default project and scheme
     gym(
-      scheme: "#{options[:scheme]}",
       configuration: options[:configuration],
-      codesigning_identity: options[:codesigning_identity],
+      include_symbols: true,
+      # bitcode is disabled for the dsym file to keep valid after app is uploaded to app store.
+      # http://krausefx.com/blog/download-dsym-symbolication-files-from-itunes-connect-for-bitcode-ios-apps
+      include_bitcode: false
     )
 
   end
 
-  # Publish to Testflight
+  private_lane :create_app do |options|
+    # Bundle identifier from xCode project
+    bundle_identifier = read_bundle_identifier(
+      build_configuration: options[:build_configuration]
+    )
+
+    # Create App ID in developer center
+    produce(
+      app_name: options[:app_name],
+      app_identifier: bundle_identifier,
+      team_name: options[:team_name],
+      skip_itc: options[:skip_itc]
+    )
+
+    # Generate provisioning profile if no present
+    match(
+      app_identifier: bundle_identifier,
+      type: options[:match_type],
+      readonly: false
+    )
+
+  end
+
+  # Publish to testflight
   private_lane :publish_testflight do |options|
 
     pilot
 
-  end
-
-  # Uploads dsyms to rollbar
-  private_lane :upload_dsym_to_rollbar do |options|
-    rollbar_url = options[:rollbar_url]
-    access_token = options[:access_token]
-    version = options[:version]
-    bundle_identifier = options[:bundle_identifier]
-    dsym = options[:dsym]
-
-    sh("curl -X POST #{rollbar_url} -F access_token=#{access_token} -F version=#{version} -F bundle_identifier=#{bundle_identifier} -F dsym='#{dsym}'")
   end
 
 end
