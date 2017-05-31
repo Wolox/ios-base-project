@@ -69,8 +69,7 @@ platform :ios do
 
   # Build and publish version to TestFlight
   lane :release_testflight do
-    # We increment the build number. If you are adding fastlane to an existing project, check what the current build is in itunes connect. 
-    # For example, if it is 15, you should set in xcode build number 15 (because increment_build_number increments the build).
+    # Increment the build number keeping the same version number.
     increment_build_number
 
     # Bundle identifier from xCode project
