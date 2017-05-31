@@ -19,7 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         }
         
+        /*
+         * Uncomment this and remove this comment once Rollbar service is enabled
+         * and the keys are properly configured in the configuration files.
+         *
         RollbarService().initialize()
+         *
+         */
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = ViewController()
