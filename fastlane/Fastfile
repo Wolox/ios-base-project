@@ -114,20 +114,20 @@ platform :ios do
   lane :create_development_app do
     # Remember after this point to choose this profile in xCode Signing (Development)
     create_app(
-      app_name: app_names[:development] % ENV['PROJECT_NAME'],
-      build_configuration: build_configurations[:development],
+      app_name: app_names[:test] % ENV['PROJECT_NAME'],
+      build_configuration: build_configurations[:test],
       team_name: ENV['TEAM_NAME'],
       skip_itc: true,
-      match_type: match_types[:development],
+      match_type: match_types[:test],
     )
 
     # Remember after this point to choose this profile in xCode Signing (Alpha)
     create_app(
-      app_name: app_names[:alpha] % ENV['PROJECT_NAME'],
-      build_configuration: build_configurations[:alpha],
+      app_name: app_names[:qa] % ENV['PROJECT_NAME'],
+      build_configuration: build_configurations[:qa],
       team_name: ENV['TEAM_NAME'],
       skip_itc: true,
-      match_type: match_types[:alpha],
+      match_type: match_types[:qa],
     )
 
   end
@@ -135,11 +135,11 @@ platform :ios do
   lane :create_testflight_app do
     # Remember after this point to choose this profile in xCode Signing (Beta)
     create_app(
-      app_name: app_names[:beta] % ENV['PROJECT_NAME'],
-      build_configuration: build_configurations[:beta],
+      app_name: app_names[:testflight] % ENV['PROJECT_NAME'],
+      build_configuration: build_configurations[:testflight],
       team_name: ENV['TEAM_NAME'],
       skip_itc: true,
-      match_type: match_types[:beta],
+      match_type: match_types[:testflight],
     )
 
   end
