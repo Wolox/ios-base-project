@@ -3,12 +3,13 @@
 # The env variables are contained in an .env.default file.
 
 # Define the minimal Fastlane version
-fastlane_version "2.35.1"
+fastlane_version "2.36.0"
 
 # Use the iOS platform as default
 default_platform :ios
 
 # Default path formatters
+project_plist_path = "%s/Info.plist"
 project_xcconfig_path = "%s/ConfigurationFiles/%s.xcconfig"
 dsym_zip_path = "%s.app.dSYM.zip"
 
@@ -42,7 +43,7 @@ platform :ios do
   # Run this before doing anything else
   before_all do
 
-    # Uncomment this if you don't have the carthage frameworks(if you are deploying from your computer, you can leave this commented).
+    # Uncomment this if you don't have the carthage frameworks installed.
     # carthage(
     #   platform: "iOS",
     #   use_binaries: false,
@@ -69,12 +70,38 @@ platform :ios do
 
   # Build and publish version to TestFlight
   lane :release_testflight do
-    # Increment the build number keeping the same version number.
-    increment_build_number
+    # Read the build number from project build settings.
+    current_build_number = read_project_property(
+      build_configuration: build_configurations[:testflight],
+      build_setting: 'CURRENT_PROJECT_VERSION'
+    )
+
+    next_build_number = String(current_build_number.to_i + 1)
+
+    # Update the build number in project build settings.
+    update_project_property(
+      build_configuration: build_configurations[:testflight],
+      build_setting: 'CURRENT_PROJECT_VERSION',
+      build_setting_value: next_build_number
+    )
+
+    # Back up the build number in Info.plist.
+    info_plist_backup_build_number = get_info_plist_value(
+      path: project_plist_path % ENV['PROJECT_NAME'],
+      key: 'CFBundleVersion'
+    )
+
+    # Update the build number in Info.plist.
+    set_info_plist_value(
+      path: project_plist_path % ENV['PROJECT_NAME'],
+      key: 'CFBundleVersion',
+      value: next_build_number
+    )
 
     # Bundle identifier from xCode project
-    bundle_identifier = read_bundle_identifier(
-      build_configuration: build_configurations[:testflight]
+    bundle_identifier = read_project_property(
+      build_configuration: build_configurations[:testflight],
+      build_setting: 'PRODUCT_BUNDLE_IDENTIFIER'
     )
 
     # Build
@@ -94,9 +121,16 @@ platform :ios do
     # Upload dsym to rollbar.
     upload_dsym(
       access_token: rollbar_server_access_token,
-      version: get_build_number,
+      version: next_build_number,
       bundle_identifier: bundle_identifier,
       dsym_zip_path: dsym_zip_path % ENV['PROJECT_NAME']
+    )
+
+    # Puts back the backed up build number in Info.plist.
+    set_info_plist_value(
+      path: project_plist_path % ENV['PROJECT_NAME'],
+      key: 'CFBundleVersion',
+      value: info_plist_backup_build_number
     )
 
     publish_testflight
@@ -183,8 +217,9 @@ platform :ios do
 
   private_lane :create_app do |options|
     # Bundle identifier from xCode project
-    bundle_identifier = read_bundle_identifier(
-      build_configuration: options[:build_configuration]
+    bundle_identifier = read_project_property(
+      build_configuration: options[:build_configuration],
+      build_setting: 'PRODUCT_BUNDLE_IDENTIFIER'
     )
 
     # Create App ID in developer center

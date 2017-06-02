@@ -2,17 +2,18 @@ require 'xcodeproj'
 
 module Fastlane
   module Actions
-    class ReadBundleIdentifierAction < Action
+    class UpdateProjectPropertyAction < Action
 
       # Given a project, a scheme, and a build configuration
-      # this script returns the corresponding 
-      # product bundle identifier.
+      # this script updates the provided build setting
+      # with the provided build setting value.
 
       def self.run(params)
-        Xcodeproj::Project.open(params[:project])
-          .native_targets.find { |each| each.name == params[:scheme] }
+        project = Xcodeproj::Project.open(params[:project])
+        project.targets.find { |each| each.name == params[:scheme] }
           .build_configurations.find { |each| each.name == params[:build_configuration] }
-          .build_settings['PRODUCT_BUNDLE_IDENTIFIER']
+          .build_settings[params[:build_setting]] = params[:build_setting_value]
+        project.save
       end
 
       # Fastlane Action class required functions.
@@ -26,6 +27,8 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :project, optional: true, default_value: default_project),
           FastlaneCore::ConfigItem.new(key: :scheme, optional: true, default_value: default_scheme),
           FastlaneCore::ConfigItem.new(key: :build_configuration, optional: false),
+          FastlaneCore::ConfigItem.new(key: :build_setting, optional: false),
+          FastlaneCore::ConfigItem.new(key: :build_setting_value, optional: false),
         ]
       end
 
