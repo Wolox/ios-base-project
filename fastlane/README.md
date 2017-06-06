@@ -38,27 +38,30 @@ Releases a new version to `TestFlight`. This lane uses the configuration mapped 
 
 
 
-It has basically 3 main responsabilities: build number managing, app building, and deploy.
+It has basically 3 main responsabilities: build/version number managing, app building, and deploy.
 
 
 
-- Reads the build number from `'CURRENT_PROJECT_VERSION'` xcode build configuration for the configuration in use.
+- Reads the build/version number from `'CURRENT_BUILD_NUMBER'/'CURRENT_VERSION_NUMBER'` 
+xcode user defined build configuration for the configuration in use.
 
-- Increments and saves this new value in the xcode build configuration.
+- Increments and saves these new values in the xcode user defined build configuration.
 
-- Sets this incremented value in the `Info.plist` under the key `CFBundleVersion`, to use this bundle version for the app.
+- Sets these incremented build and version values in the `Info.plist` to be used to build the app.
 
 - Builds the app using `gym` and `match` to get the signing identity. The provisioning profile in use is the one selected in xcode for the configuration mapped by `:testflight`.
 
 - Uploads the generated `.dsym` file to `Rollbar`.
 
-- Discards the value updated in `Info.plist`. Given this file is used for every configuration, these values are stored in xcode build configuration and just reflected in `Info.plist` when building.
+- Discards the changes in `Info.plist`. Given this file is used for every configuration, these values are stored in xcode user defined build configuration and just reflected in `Info.plist` during building.
 
 - Uploads the application to `TestFlight` using `pilot`.
 
 
 
-NOTE: It's important to note that in case the the version number needs to be updated, it has to be manually done, editing the `'CFBundleShortVersionString'` key from `Info.plist`.
+Receives a parameter `bump_type` representing the type of deploy. It can be any of ["build", "patch", "minor", "major"]
+
+Build is initialized in 0, and version in 0.0.0, so first deploy must be major
 ### ios test
 ```
 fastlane ios test

@@ -31,6 +31,10 @@ app_names = {
   release: "%s"
 }
 
+release_bump_types = ["build", "patch", "minor", "major"]
+first_build = 0
+first_version = "0.0.0"
+
 platform :ios do
 
   # Run this before doing anything else
@@ -63,48 +67,104 @@ platform :ios do
 
   desc "Releases a new version to `TestFlight`. This lane uses the configuration mapped to `:testflight`."
   desc ""
-  desc "It has basically 3 main responsabilities: build number managing, app building, and deploy."
+  desc "It has basically 3 main responsabilities: build/version number managing, app building, and deploy."
   desc ""
-  desc "- Reads the build number from `'CURRENT_PROJECT_VERSION'` xcode build configuration for the configuration in use."
-  desc "- Increments and saves this new value in the xcode build configuration."
-  desc "- Sets this incremented value in the `Info.plist` under the key `CFBundleVersion`, to use this bundle version for the app."
+  desc "- Reads the build/version number from `'CURRENT_BUILD_NUMBER'/'CURRENT_VERSION_NUMBER'` 
+xcode user defined build configuration for the configuration in use."
+  desc "- Increments and saves these new values in the xcode user defined build configuration."
+  desc "- Sets these incremented build and version values in the `Info.plist` to be used to build the app."
   desc "- Builds the app using `gym` and `match` to get the signing identity. The provisioning profile in use is the one \
 selected in xcode for the configuration mapped by `:testflight`."
   desc "- Uploads the generated `.dsym` file to `Rollbar`."
-  desc "- Discards the value updated in `Info.plist`. Given this file is used for every configuration, these values are stored \
-in xcode build configuration and just reflected in `Info.plist` when building."
+  desc "- Discards the changes in `Info.plist`. Given this file is used for every configuration, these values are stored \
+in xcode user defined build configuration and just reflected in `Info.plist` during building."
   desc "- Uploads the application to `TestFlight` using `pilot`."
   desc ""
-  desc "NOTE: It's important to note that in case the the version number needs to be updated, it has to be manually done, \
-editing the `'CFBundleShortVersionString'` key from `Info.plist`."
-  lane :release_testflight do
+  desc "Receives a parameter `bump_type` representing the type of deploy. It can be any of %s" % release_bump_types.to_s
+  desc "Build is initialized in %s, and version in %s, so first deploy must be %s" % [first_build, first_version, release_bump_types.last]
+  lane :release_testflight do |options|
 
-    desc "Read the build number from project build settings."
-    current_build_number = read_project_property(
-      build_configuration: build_configurations[:testflight],
-      build_setting: 'CURRENT_PROJECT_VERSION'
+    desc "Back up version number from `Info.plist`."
+    info_plist_backup_version_number = get_info_plist_value(
+      path: project_plist_path % ENV['PROJECT_NAME'],
+      key: 'CFBundleShortVersionString'
     )
 
-    next_build_number = String(current_build_number.to_i + 1)
-
-    desc "Update the build number in project build settings."
-    update_project_property(
-      build_configuration: build_configurations[:testflight],
-      build_setting: 'CURRENT_PROJECT_VERSION',
-      build_setting_value: next_build_number
-    )
-
-    desc "Back up the build number in `Info.plist`."
+    desc "Back up build number from `Info.plist`."
     info_plist_backup_build_number = get_info_plist_value(
       path: project_plist_path % ENV['PROJECT_NAME'],
       key: 'CFBundleVersion'
     )
 
-    desc "Update the build number in `Info.plist`."
+    desc "Read current version number from project configuration."
+    current_version_version = read_project_property(
+      build_configuration: build_configurations[:testflight],
+      build_setting: 'CURRENT_VERSION_NUMBER'
+    )
+
+    desc "Read current build number from project configuration."
+    current_build_version = read_project_property(
+      build_configuration: build_configurations[:testflight],
+      build_setting: 'CURRENT_BUILD_NUMBER'
+    )
+
+    desc "Get the type of release desired"
+    bump_type = options[:bump_type]
+    while not release_bump_types.include? bump_type do
+      bump_type = UI.input "Choose the `bump_type` representing the type of deploy. It can be any of %s" % release_bump_types.to_s
+    end
+
+    if current_version_version == first_version && bump_type != release_bump_types.last
+      UI.user_error! "This seems to be your first deploy. It must be done as %s." % release_bump_types.last
+    end
+
+    desc "Update version number in `Info.plist` with current version number."
+    set_info_plist_value(
+      path: project_plist_path % ENV['PROJECT_NAME'],
+      key: 'CFBundleShortVersionString',
+      value: current_version_version
+    )
+
+    desc "Update build number in `Info.plist` with current build number."
+    set_info_plist_value(
+      path: project_plist_path % ENV['PROJECT_NAME'],
+      key: 'CFBundleVersion',
+      value: current_build_version
+    )
+
+    desc "Update version number in `Info.plist` depending in bump_type."
+    if bump_type != "build"
+      increment_version_number(bump_type: bump_type)
+    end
+
+    desc "Define next build number depending on bump_type."
+    next_build_number = String(bump_type == "build" ? current_build_version.to_i + 1 : first_build)
+
+    desc "Update build number in `Info.plist`"
     set_info_plist_value(
       path: project_plist_path % ENV['PROJECT_NAME'],
       key: 'CFBundleVersion',
       value: next_build_number
+    )
+
+    desc "Update version number in project build settings with the value from `Info.plist`."
+    update_project_property(
+      build_configuration: build_configurations[:testflight],
+      build_setting: 'CURRENT_VERSION_NUMBER',
+      build_setting_value: get_info_plist_value(
+        path: project_plist_path % ENV['PROJECT_NAME'],
+        key: 'CFBundleShortVersionString'
+      )
+    )
+
+    desc "Update build number in project build settings with the value from `Info.plist`."
+    update_project_property(
+      build_configuration: build_configurations[:testflight],
+      build_setting: 'CURRENT_BUILD_NUMBER',
+      build_setting_value: get_info_plist_value(
+        path: project_plist_path % ENV['PROJECT_NAME'],
+        key: 'CFBundleVersion'
+      )
     )
 
     desc "Bundle identifier from xCode project"
@@ -133,6 +193,13 @@ editing the `'CFBundleShortVersionString'` key from `Info.plist`."
       version: next_build_number,
       bundle_identifier: bundle_identifier,
       dsym_zip_path: dsym_zip_path % ENV['PROJECT_NAME']
+    )
+
+    desc "Put back the backed up version number in `Info.plist`."
+    set_info_plist_value(
+      path: project_plist_path % ENV['PROJECT_NAME'],
+      key: 'CFBundleShortVersionString',
+      value: info_plist_backup_version_number
     )
 
     desc "Put back the backed up build number in `Info.plist`."
