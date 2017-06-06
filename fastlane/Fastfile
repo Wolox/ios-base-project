@@ -1,11 +1,5 @@
-# https://labs.kunstmaan.be/blog/ios-continuous-delivery-with-jenkins-and-fastlane?this-one-is-for-you-roderik
-
-# The env variables are contained in an .env.default file.
-
-# Define the minimal Fastlane version
+# The env variables are contained in an `.env.default` file.
 fastlane_version "2.36.0"
-
-# Use the iOS platform as default
 default_platform :ios
 
 # Default path formatters
@@ -37,7 +31,6 @@ app_names = {
   release: "%s"
 }
 
-# Define what to do for the iOS platform
 platform :ios do
 
   # Run this before doing anything else
@@ -55,22 +48,38 @@ platform :ios do
   # After all the steps have completed succesfully, run this.
   after_all do |lane|
 
-    # Remove all build artifacts created by fastlane to upload
+    desc "Remove all build artifacts created by fastlane to upload."
     clean_build_artifacts
 
   end
 
-  # If there was an error, run this
+  # If there was an error, run this.
   error do |lane, exception|
 
-    # Remove all build artifacts created by fastlane to upload
+    desc "Remove all build artifacts created by fastlane to upload."
     clean_build_artifacts
 
   end
 
-  # Build and publish version to TestFlight
+  desc "Releases a new version to `TestFlight`. This lane uses the configuration mapped to `:testflight`."
+  desc ""
+  desc "It has basically 3 main responsabilities: build number managing, app building, and deploy."
+  desc ""
+  desc "- Reads the build number from `'CURRENT_PROJECT_VERSION'` xcode build configuration for the configuration in use."
+  desc "- Increments and saves this new value in the xcode build configuration."
+  desc "- Sets this incremented value in the `Info.plist` under the key `CFBundleVersion`, to use this bundle version for the app."
+  desc "- Builds the app using `gym` and `match` to get the signing identity. The provisioning profile in use is the one \
+selected in xcode for the configuration mapped by `:testflight`."
+  desc "- Uploads the generated `.dsym` file to `Rollbar`."
+  desc "- Discards the value updated in `Info.plist`. Given this file is used for every configuration, these values are stored \
+in xcode build configuration and just reflected in `Info.plist` when building."
+  desc "- Uploads the application to `TestFlight` using `pilot`."
+  desc ""
+  desc "NOTE: It's important to note that in case the the version number needs to be updated, it has to be manually done, \
+editing the `'CFBundleShortVersionString'` key from `Info.plist`."
   lane :release_testflight do
-    # Read the build number from project build settings.
+
+    desc "Read the build number from project build settings."
     current_build_number = read_project_property(
       build_configuration: build_configurations[:testflight],
       build_setting: 'CURRENT_PROJECT_VERSION'
@@ -78,33 +87,33 @@ platform :ios do
 
     next_build_number = String(current_build_number.to_i + 1)
 
-    # Update the build number in project build settings.
+    desc "Update the build number in project build settings."
     update_project_property(
       build_configuration: build_configurations[:testflight],
       build_setting: 'CURRENT_PROJECT_VERSION',
       build_setting_value: next_build_number
     )
 
-    # Back up the build number in Info.plist.
+    desc "Back up the build number in `Info.plist`."
     info_plist_backup_build_number = get_info_plist_value(
       path: project_plist_path % ENV['PROJECT_NAME'],
       key: 'CFBundleVersion'
     )
 
-    # Update the build number in Info.plist.
+    desc "Update the build number in `Info.plist`."
     set_info_plist_value(
       path: project_plist_path % ENV['PROJECT_NAME'],
       key: 'CFBundleVersion',
       value: next_build_number
     )
 
-    # Bundle identifier from xCode project
+    desc "Bundle identifier from xCode project"
     bundle_identifier = read_project_property(
       build_configuration: build_configurations[:testflight],
       build_setting: 'PRODUCT_BUNDLE_IDENTIFIER'
     )
 
-    # Build
+    desc "Build"
     build_app(
       app_identifier: bundle_identifier,
       configuration: build_configurations[:testflight],
@@ -112,13 +121,13 @@ platform :ios do
       project_name: ENV["PROJECT_NAME"]
     )
 
-    # Get rollbar server access token from configuration file.
+    desc "Get rollbar server access token from configuration file."
     rollbar_server_access_token = read_xcconfig_property(
       xcconfig_path: project_xcconfig_path % [ENV['PROJECT_NAME'], build_configurations[:testflight]],
       xcconfig_key: 'ROLLBAR_SERVER_ACCESS_TOKEN'
     )
 
-    # Upload dsym to rollbar.
+    desc "Upload dsym to rollbar."
     upload_dsym(
       access_token: rollbar_server_access_token,
       version: next_build_number,
@@ -126,18 +135,22 @@ platform :ios do
       dsym_zip_path: dsym_zip_path % ENV['PROJECT_NAME']
     )
 
-    # Puts back the backed up build number in Info.plist.
+    desc "Put back the backed up build number in `Info.plist`."
     set_info_plist_value(
       path: project_plist_path % ENV['PROJECT_NAME'],
       key: 'CFBundleVersion',
       value: info_plist_backup_build_number
     )
 
+    desc "Upload the built app to TestFlight."
     publish_testflight
+
   end
 
+  desc "Executes the tests for the project using `scan`. This lane uses the configuration mapped to `:test`."
   lane :test do
-    # Run scan with default project and scheme
+
+    desc "Run scan with default project and scheme"
     scan(
       configuration: build_configurations[:test],
       clean: false
@@ -145,8 +158,10 @@ platform :ios do
 
   end
 
+  desc "Creates the `App ID` and `Provisioning Profile` for the configurations mapped to `:test` and `:qa`."
   lane :create_development_app do
-    # Remember after this point to choose this profile in xCode Signing (Development)
+
+    desc "Remember after this point to choose this profile in xCode Signing (Development)"
     create_app(
       app_name: app_names[:test] % ENV['PROJECT_NAME'],
       build_configuration: build_configurations[:test],
@@ -155,7 +170,7 @@ platform :ios do
       match_type: match_types[:test],
     )
 
-    # Remember after this point to choose this profile in xCode Signing (Alpha)
+    desc "Remember after this point to choose this profile in xCode Signing (Alpha)"
     create_app(
       app_name: app_names[:qa] % ENV['PROJECT_NAME'],
       build_configuration: build_configurations[:qa],
@@ -166,8 +181,10 @@ platform :ios do
 
   end
 
+  desc "Creates the `App ID` and `Provisioning Profile` for the configuration mapped to `:testflight`."
   lane :create_testflight_app do
-    # Remember after this point to choose this profile in xCode Signing (Beta)
+    
+    desc "Remember after this point to choose this profile in xCode Signing (Beta)"
     create_app(
       app_name: app_names[:testflight] % ENV['PROJECT_NAME'],
       build_configuration: build_configurations[:testflight],
@@ -178,51 +195,59 @@ platform :ios do
 
   end
 
+  desc "Adds a new device and regenerates the `Provisioning Profile`s to include it."
   lane :add_device do
+
+    desc "Ask the user for device name and device UUID"
     device_name = prompt(text: 'Enter the device name: ')
     device_udid = prompt(text: 'Enter the device UDID: ')
     device_hash = {}
     device_hash[device_name] = device_udid
 
-    # Register new device.
+    desc "Register new device."
     register_devices(
       devices: device_hash
     )
 
-    # Refresh provisioning profiles adding the new device.
+    desc "Refresh provisioning profiles adding the new device."
     match(
       force_for_new_devices: true
     )
 
   end
 
+  desc "Builds the app creating the `.ipa` and `.dsym` files"
   private_lane :build_app do |options|
-    # Download provisioning profiles
+
+    desc "Download provisioning profiles"
     match(
       app_identifier: options[:app_identifier],
       type: options[:match_type],
       readonly: true
     )
 
-    # Build the app using default project and scheme
+    desc "Build the app using default project and scheme"
     gym(
       configuration: options[:configuration],
       include_symbols: true,
-      # bitcode is disabled for the dsym file to keep valid after app is uploaded to app store.
+      # bitcode is disabled for the dsym file to keep valid after app is uploaded to app store
       # http://krausefx.com/blog/download-dsym-symbolication-files-from-itunes-connect-for-bitcode-ios-apps
       include_bitcode: false
     )
 
   end
 
+  desc "Create App ID and Provisioning Profile in Member Center"
+  desc "Keep these new certificates and profiles in sync with Match repository"
   private_lane :create_app do |options|
-    # Bundle identifier from xCode project
+
+    desc "Bundle identifier from xCode project"
     bundle_identifier = read_project_property(
       build_configuration: options[:build_configuration],
       build_setting: 'PRODUCT_BUNDLE_IDENTIFIER'
     )
 
-    # Create App ID in developer center
+    desc "Create App ID in developer center"
     produce(
       app_name: options[:app_name],
       app_identifier: bundle_identifier,
@@ -230,7 +255,7 @@ platform :ios do
       skip_itc: options[:skip_itc]
     )
 
-    # Generate provisioning profile if no present
+    desc "Generate provisioning profile if no present"
     match(
       app_identifier: bundle_identifier,
       type: options[:match_type],
@@ -239,7 +264,7 @@ platform :ios do
 
   end
 
-  # Publish to testflight
+  desc "Publish to testflight"
   private_lane :publish_testflight do |options|
 
     pilot
