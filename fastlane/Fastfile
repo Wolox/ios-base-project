@@ -138,13 +138,13 @@ in xcode user defined build configuration and just reflected in `Info.plist` dur
     end
 
     desc "Define next build number depending on bump_type."
-    next_build_number = String(bump_type == "build" ? current_build_version.to_i + 1 : first_build)
+    next_build_number = (bump_type == "build" ? current_build_version.to_i : first_build) + 1
 
     desc "Update build number in `Info.plist`"
     set_info_plist_value(
       path: project_plist_path % ENV['PROJECT_NAME'],
       key: 'CFBundleVersion',
-      value: next_build_number
+      value: String(next_build_number)
     )
 
     desc "Update version number in project build settings with the value from `Info.plist`."
