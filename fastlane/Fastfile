@@ -256,7 +256,7 @@ in xcode user defined build configuration and just reflected in `Info.plist` dur
       app_name: app_names[:testflight] % ENV['PROJECT_NAME'],
       build_configuration: build_configurations[:testflight],
       team_name: ENV['TEAM_NAME'],
-      skip_itc: true,
+      skip_itc: false,
       match_type: match_types[:testflight],
     )
 
