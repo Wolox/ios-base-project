@@ -115,7 +115,12 @@ in xcode user defined build configuration and just reflected in `Info.plist` dur
     end
 
     if current_version_version == first_version && bump_type != release_bump_types.last
-      UI.user_error! "This seems to be your first deploy. It must be done as %s." % release_bump_types.last
+      UI.important "This seems to be your first deploy. It must be done as %s." % release_bump_types.last
+      if (UI.input "Do you want to make it as %s? y/N" % release_bump_types.last) == "y"
+        bump_type = release_bump_types.last
+      else
+        UI.user_error! "The first depoy must be done as %s. Please try again later." % release_bump_types.last
+      end
     end
 
     desc "Update version number in `Info.plist` with current version number."
