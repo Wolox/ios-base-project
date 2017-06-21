@@ -345,7 +345,9 @@ in xcode user defined build configuration and just reflected in `Info.plist` dur
   desc "Publish to testflight"
   private_lane :publish_testflight do |options|
 
-    pilot
+    pilot(
+      skip_waiting_for_build_processing: true
+    )
 
   end
 
