@@ -61,6 +61,8 @@ xcode user defined build configuration for the configuration in use.
 
 Receives a parameter `bump_type` representing the type of deploy. It can be any of ["build", "patch", "minor", "major"]
 
+Check [here](http://semver.org/) for reference about versioning.
+
 Build is initialized in 0, and version in 0.0.0, so first deploy must be major
 ### ios test
 ```

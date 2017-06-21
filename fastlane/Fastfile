@@ -81,6 +81,7 @@ in xcode user defined build configuration and just reflected in `Info.plist` dur
   desc "- Uploads the application to `TestFlight` using `pilot`."
   desc ""
   desc "Receives a parameter `bump_type` representing the type of deploy. It can be any of %s" % release_bump_types.to_s
+  desc "Check [here](http://semver.org/) for reference about versioning."
   desc "Build is initialized in %s, and version in %s, so first deploy must be %s" % [first_build, first_version, release_bump_types.last]
   lane :release_testflight do |options|
 
