@@ -187,13 +187,18 @@ in xcode user defined build configuration and just reflected in `Info.plist` dur
       xcconfig_key: 'ROLLBAR_SERVER_ACCESS_TOKEN'
     )
 
-    desc "Upload dsym to rollbar."
-    upload_dsym(
-      access_token: rollbar_server_access_token,
-      version: next_build_number,
-      bundle_identifier: bundle_identifier,
-      dsym_zip_path: dsym_zip_path % ENV['PROJECT_NAME']
-    )
+    desc "In case rollbar server access token is present then do the uploading"
+    unless rollbar_server_access_token.to_s.empty?
+
+      desc "Upload dsym to rollbar."
+      upload_dsym(
+        access_token: rollbar_server_access_token,
+        version: next_build_number,
+        bundle_identifier: bundle_identifier,
+        dsym_zip_path: dsym_zip_path % ENV['PROJECT_NAME']
+      )
+
+    end
 
     desc "Put back the backed up version number in `Info.plist`."
     set_info_plist_value(
