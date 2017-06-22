@@ -34,7 +34,7 @@ workflows:
             #!/bin/bash
             set -ex
 
-            bundle exec fastlane scan COMMIT_MESSAGE:"$BITRISE_GIT_MESSAGE" REPO_ACCESS_TOKEN:"$REPO_ACCESS_TOKEN"
+            bundle exec fastlane test COMMIT_MESSAGE:"$BITRISE_GIT_MESSAGE" REPO_ACCESS_TOKEN:"$REPO_ACCESS_TOKEN"
     - script@1.1.3:
         title: Calculating coverage...
         inputs:

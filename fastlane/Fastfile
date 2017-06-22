@@ -1,117 +1,354 @@
-# https://labs.kunstmaan.be/blog/ios-continuous-delivery-with-jenkins-and-fastlane?this-one-is-for-you-roderik
-
-# The env variables are contained in an .env.default file.
-
-# Define the minimal Fastlane version
-fastlane_version "1.95.0"
-
-# Use the iOS platform as default
+# The env variables are contained in an `.env.default` file.
+fastlane_version "2.36.0"
 default_platform :ios
 
-# Define what to do for the iOS platform
+# Default path formatters
+project_plist_path = "%s/Info.plist"
+project_xcconfig_path = "%s/ConfigurationFiles/%s.xcconfig"
+dsym_zip_path = "%s.app.dSYM.zip"
+
+# Default build configuration by action
+build_configurations = {
+  test: "Development",
+  qa: "Alpha",
+  testflight: "Beta",
+  release: "Production"
+}
+
+# Default match types by build configuration
+match_types = {
+  test: "development",
+  qa: "adhoc",
+  testflight: "appstore",
+  release: "appstore"
+}
+
+# Default App ID names by build configuration
+app_names = {
+  test: "%s Dev",
+  qa: "%s Alpha",
+  testflight: "%s",
+  release: "%s"
+}
+
+release_bump_types = ["build", "patch", "minor", "major"]
+first_build = 0
+first_version = "0.0.0"
+
 platform :ios do
+
   # Run this before doing anything else
   before_all do
 
-    # Uncomment this if you don't have the carthage frameworks(if you are deploying from your computer, you can leave this commented).
+    # Uncomment this if you don't have the carthage frameworks installed.
     # carthage(
     #   platform: "iOS",
     #   use_binaries: false,
     #   use_ssh: true
-    #   )
+    # )
 
   end
 
   # After all the steps have completed succesfully, run this.
   after_all do |lane|
 
-    # Remove all build artifacts created by fastlane to upload
+    desc "Remove all build artifacts created by fastlane to upload."
     clean_build_artifacts
 
   end
 
-  # If there was an error, run this
+  # If there was an error, run this.
   error do |lane, exception|
 
-    # Remove all build artifacts created by fastlane to upload
+    desc "Remove all build artifacts created by fastlane to upload."
     clean_build_artifacts
 
   end
 
-  # Build and publish the Alpha version to TestFlight
-  lane :release_testflight do
+  desc "Releases a new version to `TestFlight`. This lane uses the configuration mapped to `:testflight`."
+  desc ""
+  desc "It has basically 3 main responsabilities: build/version number managing, app building, and deploy."
+  desc ""
+  desc "- Reads the build/version number from `'CURRENT_BUILD_NUMBER'/'CURRENT_VERSION_NUMBER'` 
+xcode user defined build configuration for the configuration in use."
+  desc "- Increments and saves these new values in the xcode user defined build configuration."
+  desc "- Sets these incremented build and version values in the `Info.plist` to be used to build the app."
+  desc "- Builds the app using `gym` and `match` to get the signing identity. The provisioning profile in use is the one \
+selected in xcode for the configuration mapped by `:testflight`."
+  desc "- Uploads the generated `.dsym` file to `Rollbar`."
+  desc "- Discards the changes in `Info.plist`. Given this file is used for every configuration, these values are stored \
+in xcode user defined build configuration and just reflected in `Info.plist` during building."
+  desc "- Uploads the application to `TestFlight` using `pilot`."
+  desc ""
+  desc "Receives a parameter `bump_type` representing the type of deploy. It can be any of %s" % release_bump_types.to_s
+  desc "Check [here](http://semver.org/) for reference about versioning."
+  desc "Build is initialized in %s, and version in %s, so first deploy must be %s" % [first_build, first_version, release_bump_types.last]
+  lane :release_testflight do |options|
 
-    # We increment the build number. If you are adding fastlane to an existing project, check what the current build is in itunes connect. 
-    # For example, if it is 15, you should set in xcode build number 15 (because increment_build_number increments the build).
-    increment_build_number
+    desc "Back up version number from `Info.plist`."
+    info_plist_backup_version_number = get_info_plist_value(
+      path: project_plist_path % ENV['PROJECT_NAME'],
+      key: 'CFBundleShortVersionString'
+    )
 
-    # Build
+    desc "Back up build number from `Info.plist`."
+    info_plist_backup_build_number = get_info_plist_value(
+      path: project_plist_path % ENV['PROJECT_NAME'],
+      key: 'CFBundleVersion'
+    )
+
+    desc "Read current version number from project configuration."
+    current_version_version = read_project_property(
+      build_configuration: build_configurations[:testflight],
+      build_setting: 'CURRENT_VERSION_NUMBER'
+    )
+
+    desc "Read current build number from project configuration."
+    current_build_version = read_project_property(
+      build_configuration: build_configurations[:testflight],
+      build_setting: 'CURRENT_BUILD_NUMBER'
+    )
+
+    desc "Get the type of release desired"
+    bump_type = options[:bump_type]
+    while not release_bump_types.include? bump_type do
+      bump_type = UI.input "Choose the `bump_type` representing the type of deploy. It can be any of %s" % release_bump_types.to_s
+    end
+
+    if current_version_version == first_version && bump_type != release_bump_types.last
+      UI.important "This seems to be your first deploy. It must be done as %s." % release_bump_types.last
+      if (UI.input "Do you want to make it as %s? y/N" % release_bump_types.last) == "y"
+        bump_type = release_bump_types.last
+      else
+        UI.user_error! "The first depoy must be done as %s. Please try again later." % release_bump_types.last
+      end
+    end
+
+    desc "Update version number in `Info.plist` with current version number."
+    set_info_plist_value(
+      path: project_plist_path % ENV['PROJECT_NAME'],
+      key: 'CFBundleShortVersionString',
+      value: current_version_version
+    )
+
+    desc "Update build number in `Info.plist` with current build number."
+    set_info_plist_value(
+      path: project_plist_path % ENV['PROJECT_NAME'],
+      key: 'CFBundleVersion',
+      value: current_build_version
+    )
+
+    desc "Update version number in `Info.plist` depending in bump_type."
+    if bump_type != "build"
+      increment_version_number(bump_type: bump_type)
+    end
+
+    desc "Define next build number depending on bump_type."
+    next_build_number = (bump_type == "build" ? current_build_version.to_i : first_build) + 1
+
+    desc "Update build number in `Info.plist`"
+    set_info_plist_value(
+      path: project_plist_path % ENV['PROJECT_NAME'],
+      key: 'CFBundleVersion',
+      value: String(next_build_number)
+    )
+
+    desc "Update version number in project build settings with the value from `Info.plist`."
+    update_project_property(
+      build_configuration: build_configurations[:testflight],
+      build_setting: 'CURRENT_VERSION_NUMBER',
+      build_setting_value: get_info_plist_value(
+        path: project_plist_path % ENV['PROJECT_NAME'],
+        key: 'CFBundleShortVersionString'
+      )
+    )
+
+    desc "Update build number in project build settings with the value from `Info.plist`."
+    update_project_property(
+      build_configuration: build_configurations[:testflight],
+      build_setting: 'CURRENT_BUILD_NUMBER',
+      build_setting_value: get_info_plist_value(
+        path: project_plist_path % ENV['PROJECT_NAME'],
+        key: 'CFBundleVersion'
+      )
+    )
+
+    desc "Bundle identifier from xCode project"
+    bundle_identifier = read_project_property(
+      build_configuration: build_configurations[:testflight],
+      build_setting: 'PRODUCT_BUNDLE_IDENTIFIER'
+    )
+
+    desc "Build"
     build_app(
-      # Set the app id
-      app_identifier: ENV["APP_IDENTIFIER"],
-      # What configuration to use, usefull for keeping different API keys etc between environments
-      configuration:"Release",
-      # Use this codesigning identity (this is the name of the certificate in your keychain)
-      codesigning_identity: ENV["CODE_SIGNING_ENTITY"],
-      # the projectname, this is the name of the .xcodeproj file and the folder containing your code in the project
-      project_name: ENV["PROJECT_NAME"],
-      # the scheme to build
-      scheme: "",
-      # Your team ID
-      team_id: ENV["TEAM_ID"]
+      app_identifier: bundle_identifier,
+      configuration: build_configurations[:testflight],
+      match_type: match_types[:testflight],
+      project_name: ENV["PROJECT_NAME"]
     )
 
-    upload_dsym_to_rollbar(
-      rollbar_url: 'https://api.rollbar.com/api/1/dsym',
-      access_token: ENV["ROLLBAR_POST_SERVER_ITEM_ACCESS_TOKEN"],
-      version: get_info_plist_value(path: '', key: 'CFBundleVersion'), # complete with info.plist path. ex: 'Project/Info.plist'
-      bundle_identifier: ENV["APP_IDENTIFIER"],
-      dsym: '' # DSYM location with @. Example: '@../wolox.app.dSYM.zip'. @ means that it takes the content of the file.
+    desc "Get rollbar server access token from configuration file."
+    rollbar_server_access_token = read_xcconfig_property(
+      xcconfig_path: project_xcconfig_path % [ENV['PROJECT_NAME'], build_configurations[:testflight]],
+      xcconfig_key: 'ROLLBAR_SERVER_ACCESS_TOKEN'
     )
 
+    desc "In case rollbar server access token is present then do the uploading"
+    unless rollbar_server_access_token.to_s.empty?
+
+      desc "Upload dsym to rollbar."
+      upload_dsym(
+        access_token: rollbar_server_access_token,
+        version: next_build_number,
+        bundle_identifier: bundle_identifier,
+        dsym_zip_path: dsym_zip_path % ENV['PROJECT_NAME']
+      )
+
+    end
+
+    desc "Put back the backed up version number in `Info.plist`."
+    set_info_plist_value(
+      path: project_plist_path % ENV['PROJECT_NAME'],
+      key: 'CFBundleShortVersionString',
+      value: info_plist_backup_version_number
+    )
+
+    desc "Put back the backed up build number in `Info.plist`."
+    set_info_plist_value(
+      path: project_plist_path % ENV['PROJECT_NAME'],
+      key: 'CFBundleVersion',
+      value: info_plist_backup_build_number
+    )
+
+    desc "Upload the built app to TestFlight."
     publish_testflight
 
   end
 
+  desc "Executes the tests for the project using `scan`. This lane uses the configuration mapped to `:test`."
+  lane :test do
+
+    desc "Run scan with default project and scheme"
+    scan(
+      configuration: build_configurations[:test],
+      clean: false
+    )
+
+  end
+
+  desc "Creates the `App ID` and `Provisioning Profile` for the configurations mapped to `:test` and `:qa`."
+  lane :create_development_app do
+
+    desc "Remember after this point to choose this profile in xCode Signing (Development)"
+    create_app(
+      app_name: app_names[:test] % ENV['PROJECT_NAME'],
+      build_configuration: build_configurations[:test],
+      team_name: ENV['TEAM_NAME'],
+      skip_itc: true,
+      match_type: match_types[:test],
+    )
+
+    desc "Remember after this point to choose this profile in xCode Signing (Alpha)"
+    create_app(
+      app_name: app_names[:qa] % ENV['PROJECT_NAME'],
+      build_configuration: build_configurations[:qa],
+      team_name: ENV['TEAM_NAME'],
+      skip_itc: true,
+      match_type: match_types[:qa],
+    )
+
+  end
+
+  desc "Creates the `App ID` and `Provisioning Profile` for the configuration mapped to `:testflight`."
+  lane :create_testflight_app do
+    
+    desc "Remember after this point to choose this profile in xCode Signing (Beta)"
+    create_app(
+      app_name: app_names[:testflight] % ENV['PROJECT_NAME'],
+      build_configuration: build_configurations[:testflight],
+      team_name: ENV['TEAM_NAME'],
+      skip_itc: false,
+      match_type: match_types[:testflight],
+    )
+
+  end
+
+  desc "Adds a new device and regenerates the `Provisioning Profile`s to include it."
+  lane :add_device do
+
+    desc "Ask the user for device name and device UUID"
+    device_name = prompt(text: 'Enter the device name: ')
+    device_udid = prompt(text: 'Enter the device UDID: ')
+    device_hash = {}
+    device_hash[device_name] = device_udid
+
+    desc "Register new device."
+    register_devices(
+      devices: device_hash
+    )
+
+    desc "Refresh provisioning profiles adding the new device."
+    match(
+      force_for_new_devices: true
+    )
+
+  end
+
+  desc "Builds the app creating the `.ipa` and `.dsym` files"
   private_lane :build_app do |options|
 
-    # Update the app identifier
-    update_app_identifier(
-      xcodeproj: "#{options[:project_name]}.xcodeproj",
-      plist_path: "#{options[:project_name]}/Info.plist",
-      app_identifier: options[:app_identifier]
+    desc "Download provisioning profiles"
+    match(
+      app_identifier: options[:app_identifier],
+      type: options[:match_type],
+      readonly: true
     )
 
-    # Download certificates
-    cert
-    # Download provisioning profiles
-    sigh
-
-    # Build the app
+    desc "Build the app using default project and scheme"
     gym(
-      scheme: "#{options[:scheme]}",
       configuration: options[:configuration],
-      codesigning_identity: options[:codesigning_identity],
+      include_symbols: true,
+      # bitcode is disabled for the dsym file to keep valid after app is uploaded to app store
+      # http://krausefx.com/blog/download-dsym-symbolication-files-from-itunes-connect-for-bitcode-ios-apps
+      include_bitcode: false
     )
 
   end
 
-  # Publish to Testflight
+  desc "Create App ID and Provisioning Profile in Member Center"
+  desc "Keep these new certificates and profiles in sync with Match repository"
+  private_lane :create_app do |options|
+
+    desc "Bundle identifier from xCode project"
+    bundle_identifier = read_project_property(
+      build_configuration: options[:build_configuration],
+      build_setting: 'PRODUCT_BUNDLE_IDENTIFIER'
+    )
+
+    desc "Create App ID in developer center"
+    produce(
+      app_name: options[:app_name],
+      app_identifier: bundle_identifier,
+      team_name: options[:team_name],
+      skip_itc: options[:skip_itc]
+    )
+
+    desc "Generate provisioning profile if no present"
+    match(
+      app_identifier: bundle_identifier,
+      type: options[:match_type],
+      readonly: false
+    )
+
+  end
+
+  desc "Publish to testflight"
   private_lane :publish_testflight do |options|
 
-    pilot
+    pilot(
+      skip_waiting_for_build_processing: true
+    )
 
-  end
-
-  # Uploads dsyms to rollbar
-  private_lane :upload_dsym_to_rollbar do |options|
-    rollbar_url = options[:rollbar_url]
-    access_token = options[:access_token]
-    version = options[:version]
-    bundle_identifier = options[:bundle_identifier]
-    dsym = options[:dsym]
-
-    sh("curl -X POST #{rollbar_url} -F access_token=#{access_token} -F version=#{version} -F bundle_identifier=#{bundle_identifier} -F dsym='#{dsym}'")
   end
 
 end

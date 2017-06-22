@@ -33,3 +33,8 @@ Frameworks/
 swiftlint-output/
 slather-output/
 fastlane/test_output/
+
+# Fastlane specific
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
