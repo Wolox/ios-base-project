@@ -1,5 +1,5 @@
 app_identifier "" # The bundle identifier of your app. (ex: "com.Wolox.Wolox")
-apple_id "" # Your Apple email address. (ex: "yourName@wolox.com.ar")
+apple_id "ios-si@wolox.com.ar" # Your Apple email address. (ex: "yourName@wolox.com.ar")
 
 team_id ""  # Developer Portal Team ID. (ex: "RDFGA2FGMD")
 

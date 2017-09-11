@@ -34,36 +34,16 @@ xcode-select --install
 ```
 fastlane ios release_testflight
 ```
-Releases a new version to `TestFlight`. This lane uses the configuration mapped to `:testflight`.
+New release to `TestFlight` for external users.
 
+Parameters:
 
-
-It has basically 3 main responsabilities: build/version number managing, app building, and deploy.
-
-
-
-- Reads the build/version number from `'CURRENT_BUILD_NUMBER'/'CURRENT_VERSION_NUMBER'` 
-xcode user defined build configuration for the configuration in use.
-
-- Increments and saves these new values in the xcode user defined build configuration.
-
-- Sets these incremented build and version values in the `Info.plist` to be used to build the app.
-
-- Builds the app using `gym` and `match` to get the signing identity. The provisioning profile in use is the one selected in xcode for the configuration mapped by `:testflight`.
-
-- Uploads the generated `.dsym` file to `Rollbar`.
-
-- Discards the changes in `Info.plist`. Given this file is used for every configuration, these values are stored in xcode user defined build configuration and just reflected in `Info.plist` during building.
-
-- Uploads the application to `TestFlight` using `pilot`.
-
-
-
-Receives a parameter `bump_type` representing the type of deploy. It can be any of ["build", "patch", "minor", "major"]
-
-Check [here](http://semver.org/) for reference about versioning.
-
-Build is initialized in 0, and version in 0.0.0, so first deploy must be major
+- bump_type (optional): represents the type of deploy. If not specified, the user will be asked for it.
+### ios release_qa
+```
+fastlane ios release_qa
+```
+New release to `TestFlight` for QA(Alpha). This lane will never update the version, only the build number.
 ### ios test
 ```
 fastlane ios test
