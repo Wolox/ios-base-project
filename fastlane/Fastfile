@@ -229,6 +229,8 @@ reflected in `Info.plist` during building."
     desc "Run scan with default project and scheme"
     scan(
       configuration: build_configurations[:test],
+      # Because of a supposed Apple bug, CI builds fail if it doesn't run in iPhoneSE: travis-ci/travis-ci#6422
+      devices: ['iPhone SE'],
       clean: false
     )
 
