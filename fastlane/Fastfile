@@ -62,10 +62,10 @@ platform :ios do
     clean_build_artifacts
 
   end
-  
+
   desc "New release to `TestFlight` for external users."
   desc "Parameters:"
-  desc "- bump_type (optional): represents the type of deploy. If not specified, the user will be asked for it." 
+  desc "- bump_type (optional): represents the type of deploy. If not specified, the user will be asked for it."
   lane :release_testflight do |options|
     release build_configuration: :testflight, bump_type: options[:bump_type]
   end
@@ -77,7 +77,7 @@ platform :ios do
 
   desc "Releases a new version to `TestFlight`. This lane must receive the following parameters:"
   desc "- build_configuration: A build configuration to deploy. Can be any of: `%s`" % build_configurations.keys.to_s
-  desc "- bump_type (optional): represents the type of deploy. If not specified, the user will be asked for it. 
+  desc "- bump_type (optional): represents the type of deploy. If not specified, the user will be asked for it.
   Its allowed values depend on the configuration: `%s`" % Actions::CheckBumpTypeAction::BUILD_CONFIGURATION_ALLOWED_BUMP_TYPES.to_s
   desc ""
   desc "It has basically 3 main responsabilities: build/version number managing, app building, and deploy."
@@ -122,6 +122,9 @@ reflected in `Info.plist` during building."
 
     desc "Read current version number from `TestFlight`."
     current_version_version = latest_testflight_version(bundle_id: bundle_identifier)
+    if current_version_version.nil?
+      current_version_version = Actions::CheckBumpTypeAction::FIRST_VERSION
+    end
 
     desc "Read current build number from `TestFlight`."
     current_build_version = latest_testflight_build_number(
@@ -141,8 +144,6 @@ reflected in `Info.plist` during building."
     desc "Define next build number depending on bump_type."
     next_build_number = (bump_type == "build" ? current_build_version.to_i : first_build) + 1
 
-
-    UI.input "next_build_number: #{next_build_number}, class: #{next_build_number.class}"
     desc "Set version and build number in Info.plist"
     set_info_plist_version(
       version_number: current_version_version,
@@ -352,4 +353,3 @@ reflected in `Info.plist` during building."
   end
 
 end
-
