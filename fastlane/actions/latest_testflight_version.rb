@@ -7,6 +7,9 @@ module Fastlane
       def self.run(params)
         Spaceship::Tunes.login
         app = Spaceship::Tunes::Application.find(params[:bundle_id])
+        if app.nil?
+          UI.abort_with_message! "The application is not yet created in iTunes Connect."
+        end
         app.all_build_train_numbers.max
       end
 
