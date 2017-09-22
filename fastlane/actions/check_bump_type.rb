@@ -23,7 +23,7 @@ module Fastlane
         # First deploy needs to be done as major. 
         # It is enforced in `Fastfile`.
         if is_first_deploy
-          return allowed_bump_types.last
+          return :major
         end
 
         # If there is only one allowed bump type, no need to ask the user.
