@@ -6,6 +6,7 @@ module Fastlane
       # If there's only one bump_type allowed it will use that one
       # If there isn't a bump_type specified and there are many allowed bump_types, it will ask the user
 
+      # Take care if any of these values needs to be changed. It may break the algoritmh!
       FIRST_VERSION = "0.0.0".freeze
       ALL_BUMP_TYPES = %i(build patch minor major).freeze
       BUILD_CONFIGURATION_ALLOWED_BUMP_TYPES = {
@@ -19,15 +20,18 @@ module Fastlane
         is_first_deploy = params[:version] == FIRST_VERSION
         allowed_bump_types = BUILD_CONFIGURATION_ALLOWED_BUMP_TYPES[params[:build_configuration]]
 
+        # First deploy needs to be done as major. 
         # It is enforced in `Fastfile`.
         if is_first_deploy
           return allowed_bump_types.last
         end
 
+        # If there is only one allowed bump type, no need to ask the user.
         if allowed_bump_types.count == 1
-          return allowed_bump_types.first # The only allowed bump type possible
+          return allowed_bump_types.first
         end
 
+        # As long as the user chooses a non allowed bump type, ask again until a valid one is provided.
         bump_type = params[:bump_type]
         while not allowed_bump_types.include? bump_type do
           bump_type = UI.input "Choose the `bump_type` representing the type of deploy. It can be any of %s" % allowed_bump_types.to_s
