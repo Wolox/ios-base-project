@@ -38,15 +38,6 @@ module Fastlane
           bump_type = bump_type.to_sym
         end
 
-        if is_first_deploy && bump_type != :major
-          UI.important "This seems to be your first deploy. It must be done as `%s`." % :major
-          if (UI.input "Do you want to make it as `%s`? y/N" % :major) == "y"
-            bump_type = :major
-          else
-            UI.user_error! "The first depoy must be done as %s. Please try again later." % :major
-          end
-        end
-
         bump_type
       end
 
