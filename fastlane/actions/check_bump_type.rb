@@ -19,6 +19,11 @@ module Fastlane
         is_first_deploy = params[:version] == FIRST_VERSION
         allowed_bump_types = BUILD_CONFIGURATION_ALLOWED_BUMP_TYPES[params[:build_configuration]]
 
+        # It is enforced in `Fastfile`.
+        if is_first_deploy
+          return allowed_bump_types.last
+        end
+
         if allowed_bump_types.count == 1
           return allowed_bump_types.first # The only allowed bump type possible
         end
