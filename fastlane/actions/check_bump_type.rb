@@ -19,10 +19,6 @@ module Fastlane
         is_first_deploy = params[:version] == FIRST_VERSION
         allowed_bump_types = BUILD_CONFIGURATION_ALLOWED_BUMP_TYPES[params[:build_configuration]]
 
-        if is_first_deploy
-          return :major
-        end
-
         if allowed_bump_types.count == 1
           return allowed_bump_types.first # The only allowed bump type possible
         end
@@ -30,12 +26,13 @@ module Fastlane
         bump_type = params[:bump_type]
         while not allowed_bump_types.include? bump_type do
           bump_type = UI.input "Choose the `bump_type` representing the type of deploy. It can be any of %s" % allowed_bump_types.to_s
+          bump_type = bump_type.to_sym
         end
 
-        if bump_type != :major
+        if is_first_deploy && bump_type != :major
           UI.important "This seems to be your first deploy. It must be done as `%s`." % :major
           if (UI.input "Do you want to make it as `%s`? y/N" % :major) == "y"
-            bump_type = allowed_bump_types.last
+            bump_type = :major
           else
             UI.user_error! "The first depoy must be done as %s. Please try again later." % :major
           end
