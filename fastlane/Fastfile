@@ -121,7 +121,9 @@ reflected in `Info.plist` during building."
     )
 
     desc "Read current version number from `TestFlight`."
-    current_version_version = latest_testflight_version(bundle_id: bundle_identifier)
+    current_version_version = latest_testflight_version(
+      bundle_id: bundle_identifier
+    )
     if current_version_version.nil?
       current_version_version = Actions::CheckBumpTypeAction::FIRST_VERSION
     end
