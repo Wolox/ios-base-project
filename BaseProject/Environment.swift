@@ -10,9 +10,9 @@ import Foundation
 
 internal enum Environment: String {
     
-    case development
+    case debug
     case alpha
-    case beta
+    case release
     case production
     
 }
@@ -20,14 +20,14 @@ internal enum Environment: String {
 internal extension Environment {
     
     static var current: Environment {
-        #if DEVELOPMENT
-            return .development
+        #if DEBUG
+            return .debug
         #endif
         #if ALPHA
             return .alpha
         #endif
-        #if BETA
-            return .beta
+        #if RELEASE
+            return .release
         #endif
         #if PRODUCTION
             return .production
