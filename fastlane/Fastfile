@@ -9,26 +9,26 @@ dsym_zip_path = "%s.app.dSYM.zip"
 
 # Default build configuration by action
 build_configurations = {
-  test: "Development",
+  test: "Debug",
   qa: "Alpha",
-  testflight: "Beta",
-  release: "Production"
+  appstore: "Release",
+  production: "Production"
 }
 
 # Default match types by build configuration
 match_types = {
   test: "development",
   qa: "appstore",
-  testflight: "appstore",
-  release: "appstore"
+  appstore: "appstore",
+  production: "appstore"
 }
 
 # Default App ID names by build configuration
 app_names = {
   test: "%s Dev",
   qa: "%s Alpha",
-  testflight: "%s",
-  release: "%s"
+  appstore: "%s",
+  production: "%s"
 }
 
 platform :ios do
@@ -64,8 +64,8 @@ platform :ios do
   desc "New release to `TestFlight` for external users."
   desc "Parameters:"
   desc "- bump_type (optional): represents the type of deploy. If not specified, the user will be asked for it."
-  lane :release_testflight do |options|
-    release build_configuration: :testflight, bump_type: options[:bump_type]
+  lane :release_appstore do |options|
+    release build_configuration: :appstore, bump_type: options[:bump_type]
   end
 
   desc "New release to `TestFlight` for QA(Alpha). This lane will never update the version, only the build number."
@@ -262,16 +262,16 @@ reflected in `Info.plist` during building."
 
   end
 
-  desc "Creates the `App ID` and `Provisioning Profile` for the configuration mapped to `:testflight`."
-  lane :create_testflight_app do
+  desc "Creates the `App ID` and `Provisioning Profile` for the configuration mapped to `:appstore`."
+  lane :create_appstore_app do
     
     desc "Remember after this point to choose this profile in xCode Signing (Beta)"
     create_app(
-      app_name: app_names[:testflight] % ENV['PROJECT_NAME'],
-      build_configuration: build_configurations[:testflight],
+      app_name: app_names[:appstore] % ENV['PROJECT_NAME'],
+      build_configuration: build_configurations[:appstore],
       team_name: ENV['TEAM_NAME'],
       skip_itc: false,
-      match_type: match_types[:testflight],
+      match_type: match_types[:appstore],
     )
 
   end

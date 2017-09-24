@@ -15,8 +15,8 @@ module Fastlane
       BUILD_CONFIGURATION_ALLOWED_BUMP_TYPES = {
         test: [],
         qa: [:build],
-        testflight: ALL_BUMP_TYPES,
-        release: ALL_BUMP_TYPES 
+        appstore: ALL_BUMP_TYPES,
+        production: ALL_BUMP_TYPES 
       }.freeze
 
       def self.run(params)

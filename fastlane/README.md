@@ -30,11 +30,11 @@ xcode-select --install
 
 # Available Actions
 ## iOS
-### ios release_testflight
+### ios release_appstore
 ```
-fastlane ios release_testflight
+fastlane ios release_appstore
 ```
-New release to `TestFlight` for external users.
+New release to `TestFlight` for Release for external users.
 
 Parameters:
 
@@ -54,11 +54,11 @@ Executes the tests for the project using `scan`. This lane uses the configuratio
 fastlane ios create_development_app
 ```
 Creates the `App ID` and `Provisioning Profile` for the configurations mapped to `:test` and `:qa`.
-### ios create_testflight_app
+### ios create_appstore_app
 ```
-fastlane ios create_testflight_app
+fastlane ios create_appstore_app
 ```
-Creates the `App ID` and `Provisioning Profile` for the configuration mapped to `:testflight`.
+Creates the `App ID` and `Provisioning Profile` for the configuration mapped to `:appstore`.
 ### ios add_device
 ```
 fastlane ios add_device
