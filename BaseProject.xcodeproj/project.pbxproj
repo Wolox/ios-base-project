@@ -77,16 +77,16 @@
 		9D6E40551CB1B939008CE558 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		9D6E40561CB1B93A008CE558 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		CEB934DC1D21992100DF75C2 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		CEB934DF1D21A47200DF75C2 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
-		CEB934E01D21A49000DF75C2 /* Beta.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Beta.xcconfig; sourceTree = "<group>"; };
 		CEB934E11D21A49A00DF75C2 /* Alpha.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Alpha.xcconfig; sourceTree = "<group>"; };
-		CEB934E21D21A4AB00DF75C2 /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
 		CED934861E8466A60017CF96 /* Core.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Core.framework; path = Carthage/Build/iOS/Core.framework; sourceTree = "<group>"; };
 		CED934871E8466A60017CF96 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
 		CED9348A1E8466CE0017CF96 /* MBProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MBProgressHUD.framework; path = Carthage/Build/iOS/MBProgressHUD.framework; sourceTree = "<group>"; };
+		E12DE1621F772A370072C2FF /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
 		E1530D981ED378F2002A9002 /* Rollbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rollbar.framework; path = Carthage/Build/iOS/Rollbar.framework; sourceTree = "<group>"; };
 		E1530D9B1ED37905002A9002 /* RollbarService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RollbarService.swift; path = Services/RollbarService.swift; sourceTree = "<group>"; };
 		E1530D9D1ED382EA002A9002 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		E17065121F75B6A10042755C /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		E17065131F75B6A10042755C /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,10 +196,10 @@
 		CEB934DE1D21A44700DF75C2 /* ConfigurationFiles */ = {
 			isa = PBXGroup;
 			children = (
-				CEB934DF1D21A47200DF75C2 /* Development.xcconfig */,
+				E17065121F75B6A10042755C /* Debug.xcconfig */,
 				CEB934E11D21A49A00DF75C2 /* Alpha.xcconfig */,
-				CEB934E01D21A49000DF75C2 /* Beta.xcconfig */,
-				CEB934E21D21A4AB00DF75C2 /* Production.xcconfig */,
+				E17065131F75B6A10042755C /* Release.xcconfig */,
+				E12DE1621F772A370072C2FF /* Production.xcconfig */,
 			);
 			path = ConfigurationFiles;
 			sourceTree = "<group>";
@@ -436,9 +436,9 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		CE39E8751D1DAED00004FE95 /* Development */ = {
+		CE39E8751D1DAED00004FE95 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* Development.xcconfig */;
+			baseConfigurationReference = E17065121F75B6A10042755C /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -479,13 +479,13 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Development;
+			name = Debug;
 		};
-		CE39E8761D1DAED00004FE95 /* Development */ = {
+		CE39E8761D1DAED00004FE95 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* Development.xcconfig */;
+			baseConfigurationReference = E17065121F75B6A10042755C /* Debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-development";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-debug";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -494,18 +494,18 @@
 				);
 				INFOPLIST_FILE = BaseProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProject.development;
+				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProject.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "-D DEVELOPMENT";
 				SWIFT_VERSION = 3.0;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "-D DEBUG";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = Development;
+			name = Debug;
 		};
-		CE39E8771D1DAED00004FE95 /* Development */ = {
+		CE39E8771D1DAED00004FE95 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* Development.xcconfig */;
+			baseConfigurationReference = E17065121F75B6A10042755C /* Debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -519,11 +519,11 @@
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BaseProject.app/BaseProject";
 			};
-			name = Development;
+			name = Debug;
 		};
-		CE39E8781D1DAED00004FE95 /* Development */ = {
+		CE39E8781D1DAED00004FE95 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934DF1D21A47200DF75C2 /* Development.xcconfig */;
+			baseConfigurationReference = E17065121F75B6A10042755C /* Debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = BaseProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -532,7 +532,7 @@
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = BaseProject;
 			};
-			name = Development;
+			name = Debug;
 		};
 		CE39E8791D1DAEE70004FE95 /* Alpha */ = {
 			isa = XCBuildConfiguration;
@@ -631,9 +631,9 @@
 			};
 			name = Alpha;
 		};
-		CE39E87D1D1DAEED0004FE95 /* Beta */ = {
+		CE39E8811D1DAEF20004FE95 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* Beta.xcconfig */;
+			baseConfigurationReference = E17065131F75B6A10042755C /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -673,13 +673,13 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Beta;
+			name = Release;
 		};
-		CE39E87E1D1DAEED0004FE95 /* Beta */ = {
+		CE39E8821D1DAEF20004FE95 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* Beta.xcconfig */;
+			baseConfigurationReference = E17065131F75B6A10042755C /* Release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-beta";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-release";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -691,15 +691,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "-D BETA";
 				SWIFT_VERSION = 3.0;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "-D RELEASE";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = Beta;
+			name = Release;
 		};
-		CE39E87F1D1DAEED0004FE95 /* Beta */ = {
+		CE39E8831D1DAEF20004FE95 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* Beta.xcconfig */;
+			baseConfigurationReference = E17065131F75B6A10042755C /* Release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -713,11 +713,11 @@
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BaseProject.app/BaseProject";
 			};
-			name = Beta;
+			name = Release;
 		};
-		CE39E8801D1DAEED0004FE95 /* Beta */ = {
+		CE39E8841D1DAEF20004FE95 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E01D21A49000DF75C2 /* Beta.xcconfig */;
+			baseConfigurationReference = E17065131F75B6A10042755C /* Release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = BaseProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -726,11 +726,11 @@
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = BaseProject;
 			};
-			name = Beta;
+			name = Release;
 		};
-		CE39E8811D1DAEF20004FE95 /* Production */ = {
+		E12DE15E1F772A1E0072C2FF /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* Production.xcconfig */;
+			baseConfigurationReference = E12DE1621F772A370072C2FF /* Production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -771,9 +771,9 @@
 			};
 			name = Production;
 		};
-		CE39E8821D1DAEF20004FE95 /* Production */ = {
+		E12DE15F1F772A1E0072C2FF /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* Production.xcconfig */;
+			baseConfigurationReference = E12DE1621F772A370072C2FF /* Production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-production";
 				CURRENT_PROJECT_VERSION = 1;
@@ -793,9 +793,9 @@
 			};
 			name = Production;
 		};
-		CE39E8831D1DAEF20004FE95 /* Production */ = {
+		E12DE1601F772A1E0072C2FF /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* Production.xcconfig */;
+			baseConfigurationReference = E12DE1621F772A370072C2FF /* Production.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -811,9 +811,9 @@
 			};
 			name = Production;
 		};
-		CE39E8841D1DAEF20004FE95 /* Production */ = {
+		E12DE1611F772A1E0072C2FF /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEB934E21D21A4AB00DF75C2 /* Production.xcconfig */;
+			baseConfigurationReference = E12DE1621F772A370072C2FF /* Production.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = BaseProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -830,46 +830,46 @@
 		9D1574FC1CB1B27500EA395E /* Build configuration list for PBXProject "BaseProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE39E8751D1DAED00004FE95 /* Development */,
+				CE39E8751D1DAED00004FE95 /* Debug */,
 				CE39E8791D1DAEE70004FE95 /* Alpha */,
-				CE39E87D1D1DAEED0004FE95 /* Beta */,
-				CE39E8811D1DAEF20004FE95 /* Production */,
+				CE39E8811D1DAEF20004FE95 /* Release */,
+				E12DE15E1F772A1E0072C2FF /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Debug;
 		};
 		9D1575291CB1B27500EA395E /* Build configuration list for PBXNativeTarget "BaseProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE39E8761D1DAED00004FE95 /* Development */,
+				CE39E8761D1DAED00004FE95 /* Debug */,
 				CE39E87A1D1DAEE70004FE95 /* Alpha */,
-				CE39E87E1D1DAEED0004FE95 /* Beta */,
-				CE39E8821D1DAEF20004FE95 /* Production */,
+				CE39E8821D1DAEF20004FE95 /* Release */,
+				E12DE15F1F772A1E0072C2FF /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Debug;
 		};
 		9D15752C1CB1B27500EA395E /* Build configuration list for PBXNativeTarget "BaseProjectTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE39E8771D1DAED00004FE95 /* Development */,
+				CE39E8771D1DAED00004FE95 /* Debug */,
 				CE39E87B1D1DAEE70004FE95 /* Alpha */,
-				CE39E87F1D1DAEED0004FE95 /* Beta */,
-				CE39E8831D1DAEF20004FE95 /* Production */,
+				CE39E8831D1DAEF20004FE95 /* Release */,
+				E12DE1601F772A1E0072C2FF /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Debug;
 		};
 		9D15752F1CB1B27500EA395E /* Build configuration list for PBXNativeTarget "BaseProjectUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE39E8781D1DAED00004FE95 /* Development */,
+				CE39E8781D1DAED00004FE95 /* Debug */,
 				CE39E87C1D1DAEE70004FE95 /* Alpha */,
-				CE39E8801D1DAEED0004FE95 /* Beta */,
-				CE39E8841D1DAEF20004FE95 /* Production */,
+				CE39E8841D1DAEF20004FE95 /* Release */,
+				E12DE1611F772A1E0072C2FF /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
