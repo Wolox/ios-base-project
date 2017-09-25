@@ -7,13 +7,16 @@ module Fastlane
       # If there isn't a bump_type specified and there are many allowed bump_types, it will ask the user
 
       # Take care if any of these values needs to be changed. It may break the algoritmh!
+      
+      FIRST_BUILD = 0
       FIRST_VERSION = "0.0.0".freeze
+
       ALL_BUMP_TYPES = %i(build patch minor major).freeze
       BUILD_CONFIGURATION_ALLOWED_BUMP_TYPES = {
         test: [],
         qa: [:build],
-        testflight: ALL_BUMP_TYPES,
-        release: ALL_BUMP_TYPES 
+        appstore: ALL_BUMP_TYPES,
+        production: ALL_BUMP_TYPES 
       }.freeze
 
       def self.run(params)

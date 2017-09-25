@@ -9,29 +9,27 @@ dsym_zip_path = "%s.app.dSYM.zip"
 
 # Default build configuration by action
 build_configurations = {
-  test: "Development",
+  test: "Debug",
   qa: "Alpha",
-  testflight: "Beta",
-  release: "Production"
+  appstore: "Release",
+  production: "Production"
 }
 
 # Default match types by build configuration
 match_types = {
   test: "development",
   qa: "appstore",
-  testflight: "appstore",
-  release: "appstore"
+  appstore: "appstore",
+  production: "appstore"
 }
 
 # Default App ID names by build configuration
 app_names = {
   test: "%s Dev",
   qa: "%s Alpha",
-  testflight: "%s",
-  release: "%s"
+  appstore: "%s",
+  production: "%s"
 }
-
-first_build = 0
 
 platform :ios do
 
@@ -66,8 +64,8 @@ platform :ios do
   desc "New release to `TestFlight` for external users."
   desc "Parameters:"
   desc "- bump_type (optional): represents the type of deploy. If not specified, the user will be asked for it."
-  lane :release_testflight do |options|
-    release build_configuration: :testflight, bump_type: options[:bump_type]
+  lane :release_appstore do |options|
+    release build_configuration: :appstore, bump_type: options[:bump_type]
   end
 
   desc "New release to `TestFlight` for QA(Alpha). This lane will never update the version, only the build number."
@@ -92,7 +90,9 @@ reflected in `Info.plist` during building."
   desc "- Uploads the application to `TestFlight` using `pilot`."
   desc ""
   desc "Check [here](http://semver.org/) for reference about versioning."
-  desc "Build is initialized in `%s`, and version in `%s`, so first deploy must be a `%s`" % [first_build, Actions::CheckBumpTypeAction::FIRST_VERSION, :major]
+  desc "Build is initialized in `%s`" % Actions::CheckBumpTypeAction::FIRST_BUILD
+  desc "Version is initialized in `%s`" % Actions::CheckBumpTypeAction::FIRST_VERSION
+  desc "First deploy must always be a `%s`" % :major
   private_lane :release do |options|
 
     build_configuration = options[:build_configuration]
@@ -120,8 +120,8 @@ reflected in `Info.plist` during building."
     current_build_version = latest_testflight_build_number(
       app_identifier: bundle_identifier,
       version: current_version_version,
-      initial_build_number: first_build
-    )
+      initial_build_number: Actions::CheckBumpTypeAction::FIRST_BUILD
+    ).to_i
 
     bump_type = check_bump_type(
       build_configuration: build_configuration,
@@ -144,7 +144,8 @@ reflected in `Info.plist` during building."
     )
 
     desc "Define next build number depending on bump_type."
-    next_build_number = (bump_type == "build" ? current_build_version.to_i : first_build) + 1
+    current_build_number = bump_type == "build" ? current_build_version : Actions::CheckBumpTypeAction::FIRST_BUILD
+    next_build_number = current_build_number + 1
 
     desc "Set version and build number in Info.plist"
     set_info_plist_version(
@@ -186,7 +187,6 @@ reflected in `Info.plist` during building."
       end
 
       desc "Upload the built app to TestFlight."
-
       UI.message "Uploading version `%s` build `%s`" % [current_version_version, next_build_number]
       publish_testflight
     ensure
@@ -262,16 +262,16 @@ reflected in `Info.plist` during building."
 
   end
 
-  desc "Creates the `App ID` and `Provisioning Profile` for the configuration mapped to `:testflight`."
-  lane :create_testflight_app do
+  desc "Creates the `App ID` and `Provisioning Profile` for the configuration mapped to `:appstore`."
+  lane :create_appstore_app do
     
     desc "Remember after this point to choose this profile in xCode Signing (Beta)"
     create_app(
-      app_name: app_names[:testflight] % ENV['PROJECT_NAME'],
-      build_configuration: build_configurations[:testflight],
+      app_name: app_names[:appstore] % ENV['PROJECT_NAME'],
+      build_configuration: build_configurations[:appstore],
       team_name: ENV['TEAM_NAME'],
       skip_itc: false,
-      match_type: match_types[:testflight],
+      match_type: match_types[:appstore],
     )
 
   end
