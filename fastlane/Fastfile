@@ -178,7 +178,7 @@ reflected in `Info.plist` during building."
       UI.message "Uploading version `%s` build `%s`" % [current_version_version, next_build_number]
       publish_testflight
     ensure
-      desc "Put back the backed up version number and build number in `Info.plist`."
+      desc "Put back the default version number and build number in `Info.plist`."
       set_info_plist_version(
         version_number: Actions::CheckBumpTypeAction::FIRST_VERSION,
         build_number: Actions::CheckBumpTypeAction::FIRST_BUILD
