@@ -9,6 +9,9 @@ module Fastlane
       # is needed to be accessed from a fastlane script.
 
       def self.run(params)
+        if !File.exist?(params[:xcconfig_path])
+          return nil
+        end
         line = File.open(params[:xcconfig_path])
           .find { |each| each.start_with? params[:xcconfig_key] }
         line.to_s.empty? ? nil : line.split('=').last.strip
