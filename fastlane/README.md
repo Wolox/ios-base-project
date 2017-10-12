@@ -34,7 +34,7 @@ xcode-select --install
 ```
 fastlane ios release_appstore
 ```
-New release to `TestFlight` for Release for external users.
+New release to `TestFlight` for Appstore.
 
 Parameters:
 
