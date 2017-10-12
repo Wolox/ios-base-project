@@ -61,7 +61,7 @@ platform :ios do
 
   end
 
-  desc "New release to `TestFlight` for external users."
+  desc "New release to `TestFlight` for Appstore."
   desc "Parameters:"
   desc "- bump_type (optional): represents the type of deploy. If not specified, the user will be asked for it."
   lane :release_appstore do |options|
