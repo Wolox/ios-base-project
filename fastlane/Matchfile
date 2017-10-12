@@ -5,7 +5,7 @@ username "ios-si@wolox.com.ar"
 git_url "git@github.com:Wolox/apple-certificates.git"
 
 # Branch in repository to take the signing information
-git_branch ENV["TEAM_BRANCH"]
+git_branch "wolox-team"
 
 # Team ID for signing
-team_id ENV["TEAM_ID"]
+team_id "7XS5GQGS29"
