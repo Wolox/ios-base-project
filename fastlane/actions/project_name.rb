@@ -12,7 +12,7 @@ module Fastlane
       # by the user and fails.
 
       def self.run(params)
-        default_project_name
+        params[:project_name]
       end
 
       # Fastlane Action class required functions.
