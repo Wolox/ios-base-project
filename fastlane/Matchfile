@@ -8,4 +8,5 @@ git_url "git@github.com:Wolox/apple-certificates.git"
 git_branch "wolox-team"
 
 # Team ID for signing
+# Don't forget to change this in Appfile also.
 team_id "7XS5GQGS29"
