@@ -36,12 +36,8 @@ platform :ios do
   # Run this before doing anything else
   before_all do
 
-    # Uncomment this if you don't have the carthage frameworks installed.
-    # carthage(
-    #   platform: "iOS",
-    #   use_binaries: false,
-    #   use_ssh: true
-    # )
+    desc "Simply validate the project name and main target are properly configured."
+    UI.message "Running lane for project: `%s`" % project_name
 
   end
 
@@ -151,13 +147,12 @@ reflected in `Info.plist` during building."
       build_app(
         app_identifier: bundle_identifier,
         configuration: build_configurations[build_configuration],
-        match_type: match_types[build_configuration],
-        project_name: ENV["PROJECT_NAME"]
+        match_type: match_types[build_configuration]
       )
 
       desc "Get rollbar server access token from configuration file."
       rollbar_server_access_token = read_xcconfig_property(
-        xcconfig_path: project_xcconfig_path % [ENV['PROJECT_NAME'], build_configurations[build_configuration]],
+        xcconfig_path: project_xcconfig_path % [project_name, build_configurations[build_configuration]],
         xcconfig_key: 'ROLLBAR_SERVER_ACCESS_TOKEN'
       )
 
@@ -169,7 +164,7 @@ reflected in `Info.plist` during building."
           access_token: rollbar_server_access_token,
           version: String(next_build_number),
           bundle_identifier: bundle_identifier,
-          dsym_zip_path: dsym_zip_path % ENV['PROJECT_NAME']
+          dsym_zip_path: dsym_zip_path % project_name
         )
 
       end
@@ -201,14 +196,14 @@ reflected in `Info.plist` during building."
 
     desc "Set version number in `Info.plist`."
     set_info_plist_value(
-      path: project_plist_path % ENV['PROJECT_NAME'],
+      path: project_plist_path % project_name,
       key: 'CFBundleShortVersionString',
       value: version_number.to_s
     )
 
     desc "Set build number in `Info.plist`."
     set_info_plist_value(
-      path: project_plist_path % ENV['PROJECT_NAME'],
+      path: project_plist_path % project_name,
       key: 'CFBundleVersion',
       value: build_number.to_s
     )
@@ -232,18 +227,16 @@ reflected in `Info.plist` during building."
 
     desc "Remember after this point to choose this profile in xCode Signing (Development)"
     create_app(
-      app_name: app_names[:test] % ENV['PROJECT_NAME'],
+      app_name: app_names[:test] % project_name,
       build_configuration: build_configurations[:test],
-      team_name: ENV['TEAM_NAME'],
       skip_itc: true,
       match_type: match_types[:test],
     )
 
     desc "Remember after this point to choose this profile in xCode Signing (Alpha)"
     create_app(
-      app_name: app_names[:qa] % ENV['PROJECT_NAME'],
+      app_name: app_names[:qa] % project_name,
       build_configuration: build_configurations[:qa],
-      team_name: ENV['TEAM_NAME'],
       skip_itc: false,
       match_type: match_types[:qa],
     )
@@ -255,9 +248,8 @@ reflected in `Info.plist` during building."
     
     desc "Remember after this point to choose this profile in xCode Signing (Beta)"
     create_app(
-      app_name: app_names[:appstore] % ENV['PROJECT_NAME'],
+      app_name: app_names[:appstore] % project_name,
       build_configuration: build_configurations[:appstore],
-      team_name: ENV['TEAM_NAME'],
       skip_itc: false,
       match_type: match_types[:appstore],
     )
@@ -316,11 +308,17 @@ reflected in `Info.plist` during building."
       build_setting: 'PRODUCT_BUNDLE_IDENTIFIER'
     )
 
+    UI.message "Attempting to create application for build configuration '#{options[:build_configuration]}'."
+    UI.message "Using name: '#{options[:app_name]}' and bundle ID: '#{bundle_identifier}'"
+    confirmation = UI.input "If the parameters are correct, proceed: Y/n"
+    unless confirmation.empty? || confirmation.downcase == "y"
+      UI.user_error! "Aborting due to parameters misconfiguration. Correct them and run the lane again."
+    end
+
     desc "Create App ID in developer center"
     produce(
       app_name: options[:app_name],
       app_identifier: bundle_identifier,
-      team_name: options[:team_name],
       skip_itc: options[:skip_itc]
     )
 
