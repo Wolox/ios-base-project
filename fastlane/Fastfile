@@ -229,7 +229,6 @@ reflected in `Info.plist` during building."
     create_app(
       app_name: app_names[:test] % project_name,
       build_configuration: build_configurations[:test],
-      team_name: ENV['TEAM_NAME'],
       skip_itc: true,
       match_type: match_types[:test],
     )
@@ -238,7 +237,6 @@ reflected in `Info.plist` during building."
     create_app(
       app_name: app_names[:qa] % project_name,
       build_configuration: build_configurations[:qa],
-      team_name: ENV['TEAM_NAME'],
       skip_itc: false,
       match_type: match_types[:qa],
     )
@@ -252,7 +250,6 @@ reflected in `Info.plist` during building."
     create_app(
       app_name: app_names[:appstore] % project_name,
       build_configuration: build_configurations[:appstore],
-      team_name: ENV['TEAM_NAME'],
       skip_itc: false,
       match_type: match_types[:appstore],
     )
@@ -315,7 +312,6 @@ reflected in `Info.plist` during building."
     produce(
       app_name: options[:app_name],
       app_identifier: bundle_identifier,
-      team_name: options[:team_name],
       skip_itc: options[:skip_itc]
     )
 
