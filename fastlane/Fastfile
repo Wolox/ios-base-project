@@ -308,6 +308,13 @@ reflected in `Info.plist` during building."
       build_setting: 'PRODUCT_BUNDLE_IDENTIFIER'
     )
 
+    UI.message "Attempting to create application for build configuration '#{options[:build_configuration]}'."
+    UI.message "Using name: '#{options[:app_name]}' and bundle ID: '#{bundle_identifier}'"
+    confirmation = UI.input "If the parameters are correct, proceed: Y/n"
+    unless confirmation.empty? || confirmation.downcase == "y"
+      UI.user_error! "Aborting due to parameters misconfiguration. Correct them and run the lane again."
+    end
+
     desc "Create App ID in developer center"
     produce(
       app_name: options[:app_name],
