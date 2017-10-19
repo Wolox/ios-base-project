@@ -15,8 +15,7 @@ module Fastlane
           -F access_token=#{params[:access_token]} \
           -F version=#{params[:version]} \
           -F bundle_identifier=#{params[:bundle_identifier]} \
-          -F dsym=@"#{params[:dsym_zip_path]}"
-        >
+          -F dsym=@"#{params[:dsym_zip_path]}">
 
         # If upload was successful "error" is 0.
         # https://rollbar.com/docs/api/items_post/
