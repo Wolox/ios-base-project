@@ -19,9 +19,12 @@ module Fastlane
 
         # If upload was successful "error" is 0.
         # https://rollbar.com/docs/api/items_post/
-        not JSON.parse(response)["err"].zero?
+        error = !JSON.parse(response)["err"].zero?
+        if error
           UI.error("Error uploading DSYM file: #{JSON.parse(response)["message"]}")
+        end
 
+        error
       end
 
       # Fastlane Action class required functions.
