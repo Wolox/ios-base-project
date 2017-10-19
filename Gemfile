@@ -7,6 +7,5 @@ gem 'carthage_cache'
 gem 'slather', '~>2.4.3'
 gem 'codestats-metrics-reporter'
 
-# Fastlane and fastlane related scripts gems
+# Fastlane
 gem 'fastlane', '~>2.62.0'
-gem 'rest-client'
