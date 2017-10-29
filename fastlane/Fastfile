@@ -1,5 +1,5 @@
 # The env variables are contained in an `.env.default` file.
-fastlane_version "2.55.0"
+fastlane_version "2.62.0"
 default_platform :ios
 
 # Default path formatters

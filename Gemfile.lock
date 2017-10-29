@@ -51,7 +51,7 @@ GEM
     faraday_middleware (0.12.2)
       faraday (>= 0.7.4, < 1.0)
     fastimage (2.1.0)
-    fastlane (2.55.0)
+    fastlane (2.62.1)
       CFPropertyList (>= 2.3, < 3.0.0)
       addressable (>= 2.3, < 3.0.0)
       babosa (>= 1.0.2, < 2.0.0)
@@ -108,9 +108,9 @@ GEM
       mime-types (~> 3.0)
       representable (~> 3.0)
       retriable (>= 2.0, < 4.0)
-    googleauth (0.5.3)
+    googleauth (0.6.1)
       faraday (~> 0.12)
-      jwt (~> 1.4)
+      jwt (>= 1.4, < 3.0)
       logging (~> 2.0)
       memoist (~> 0.12)
       multi_json (~> 1.11)
@@ -126,7 +126,7 @@ GEM
     ipaddress (0.8.3)
     jmespath (1.3.1)
     json (2.1.0)
-    jwt (1.5.6)
+    jwt (2.1.0)
     little-plugger (1.1.4)
     logging (2.2.2)
       little-plugger (~> 1.1)
@@ -170,10 +170,10 @@ GEM
       fog-aws (>= 0.9.4)
       mime-types
     security (0.1.3)
-    signet (0.7.3)
+    signet (0.8.1)
       addressable (~> 2.3)
       faraday (~> 0.9)
-      jwt (~> 1.5)
+      jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
     slack-notifier (1.5.1)
     slather (2.4.3)
@@ -186,7 +186,7 @@ GEM
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
     thread_safe (0.3.6)
-    tty-screen (0.5.0)
+    tty-screen (0.5.1)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
     uber (0.1.0)
@@ -202,7 +202,7 @@ GEM
       nanaimo (~> 0.2.3)
     xcpretty (0.2.8)
       rouge (~> 2.0.7)
-    xcpretty-travis-formatter (0.0.4)
+    xcpretty-travis-formatter (1.0.0)
       xcpretty (~> 0.2, >= 0.0.7)
 
 PLATFORMS
@@ -211,7 +211,7 @@ PLATFORMS
 DEPENDENCIES
   carthage_cache
   codestats-metrics-reporter
-  fastlane (~> 2.55.0)
+  fastlane (~> 2.62.0)
   rest-client
   slather (~> 2.4.3)
 
