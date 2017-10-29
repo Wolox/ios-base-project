@@ -12,7 +12,7 @@ module Fastlane
       # by the user and fails.
 
       def self.run(params)
-        params[:project_name]
+        default_project_name
       end
 
       # Fastlane Action class required functions.
@@ -23,7 +23,7 @@ module Fastlane
 
       def self.available_options
         [
-          FastlaneCore::ConfigItem.new(key: :project_name, optional: true, default_value: default_project_name)
+          FastlaneCore::ConfigItem.new(key: :project_name, optional: false)
         ]
       end
 
