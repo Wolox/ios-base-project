@@ -502,7 +502,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProject.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Wolox.BaseProject.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -522,7 +522,7 @@
 				);
 				INFOPLIST_FILE = BaseProjectTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProjectTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Wolox.BaseProjectTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BaseProject.app/BaseProject";
@@ -535,7 +535,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = BaseProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProjectUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Wolox.BaseProjectUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = BaseProject;
@@ -607,7 +607,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "-D ALPHA";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProject.alpha;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Wolox.BaseProject.alpha;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -627,7 +627,7 @@
 				);
 				INFOPLIST_FILE = BaseProjectTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProjectTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Wolox.BaseProjectTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BaseProject.app/BaseProject";
@@ -640,7 +640,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = BaseProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProjectUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Wolox.BaseProjectUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = BaseProject;
@@ -711,7 +711,7 @@
 				INFOPLIST_FILE = BaseProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-D RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Wolox.BaseProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -731,7 +731,7 @@
 				);
 				INFOPLIST_FILE = BaseProjectTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProjectTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Wolox.BaseProjectTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BaseProject.app/BaseProject";
@@ -744,7 +744,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = BaseProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProjectUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Wolox.BaseProjectUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = BaseProject;
@@ -814,7 +814,7 @@
 				INFOPLIST_FILE = BaseProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-D PRODUCTION";
-				PRODUCT_BUNDLE_IDENTIFIER = com.baseproject.BaseProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BaseProject.BaseProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -834,7 +834,7 @@
 				);
 				INFOPLIST_FILE = BaseProjectTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProjectTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Wolox.BaseProjectTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BaseProject.app/BaseProject";
@@ -847,7 +847,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = BaseProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ar.com.wolox.BaseProjectUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Wolox.BaseProjectUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = BaseProject;
