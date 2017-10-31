@@ -36,8 +36,24 @@ platform :ios do
   # Run this before doing anything else
   before_all do
 
-    desc "Simply validate the project name and main target are properly configured."
+    desc "Validate the project name and main target are properly configured."
     UI.message "Running lane for project: `%s`" % project_name
+
+    desc "Validate the configured bundle identifiers match the expected ones."
+    expected_bundle_identifiers = Hash[build_configurations.values.uniq.map { |each| [each, []] }]
+    build_configurations.each do |key, value|
+      expected_bundle_identifiers[value].push(infer_bundle_identifier(build_configuration: key))
+    end
+    expected_bundle_identifiers.each do |key, value|
+      found_bundle_identifier = read_project_property(
+        build_configuration: key, 
+        build_setting: 'PRODUCT_BUNDLE_IDENTIFIER'
+      )
+      UI.message "Validating bundle identifier for '#{key}'. Expected: '#{value}', found: '#{found_bundle_identifier}'."
+      unless value.include?(found_bundle_identifier)
+        UI.abort_with_message! "Aborting due to mismatching in bundle identifier for build configuration '#{value}'."
+      end
+    end
 
   end
 
