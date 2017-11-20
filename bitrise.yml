@@ -11,6 +11,15 @@ workflows:
   ci:
     steps:
     - script@1.1.3:
+        title: Download fastlane...
+        run_if: '{{enveq "GIT_REPOSITORY_URL" "git@github.com:Wolox/ios-base-project.git" }}'
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+
+            git clone --depth=1 https://github.com/Wolox/fastlane-mobile.git fastlane; rm -rf fastlane/.git
+    - script@1.1.3:
         title: Bootstrapping...
         inputs:
         - content: |-
