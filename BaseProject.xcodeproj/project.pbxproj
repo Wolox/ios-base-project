@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0CCF002A219208080061050C /* WolmoReactiveCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CCF0029219208080061050C /* WolmoReactiveCore.framework */; };
+		0CCF002C219208110061050C /* Wormholy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CCF002B219208110061050C /* Wormholy.framework */; };
+		0CCF002E219208180061050C /* WolmoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CCF002D219208180061050C /* WolmoCore.framework */; };
 		9D1575051CB1B27500EA395E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1575041CB1B27500EA395E /* AppDelegate.swift */; };
 		9D1575071CB1B27500EA395E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1575061CB1B27500EA395E /* ViewController.swift */; };
 		9D15750C1CB1B27500EA395E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D15750B1CB1B27500EA395E /* Assets.xcassets */; };
@@ -20,9 +23,7 @@
 		9D6E405A1CB1B93A008CE558 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6E40551CB1B939008CE558 /* ReactiveCocoa.framework */; };
 		9D6E405B1CB1B93A008CE558 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6E40561CB1B93A008CE558 /* Result.framework */; };
 		CEB934DD1D21992100DF75C2 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB934DC1D21992100DF75C2 /* Environment.swift */; };
-		CED934881E8466A60017CF96 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED934861E8466A60017CF96 /* Core.framework */; };
 		CED934891E8466A60017CF96 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED934871E8466A60017CF96 /* ReactiveSwift.framework */; };
-		CED9348B1E8466CE0017CF96 /* MBProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED9348A1E8466CE0017CF96 /* MBProgressHUD.framework */; };
 		E1530D991ED378F2002A9002 /* Rollbar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1530D981ED378F2002A9002 /* Rollbar.framework */; };
 		E1530D9C1ED37905002A9002 /* RollbarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1530D9B1ED37905002A9002 /* RollbarService.swift */; };
 		E1530D9E1ED382EA002A9002 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1530D9D1ED382EA002A9002 /* SystemConfiguration.framework */; };
@@ -61,6 +62,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0CCF0029219208080061050C /* WolmoReactiveCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WolmoReactiveCore.framework; path = Carthage/Build/iOS/WolmoReactiveCore.framework; sourceTree = "<group>"; };
+		0CCF002B219208110061050C /* Wormholy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Wormholy.framework; path = Carthage/Build/iOS/Wormholy.framework; sourceTree = "<group>"; };
+		0CCF002D219208180061050C /* WolmoCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WolmoCore.framework; path = Carthage/Build/iOS/WolmoCore.framework; sourceTree = "<group>"; };
 		9D1575011CB1B27500EA395E /* BaseProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaseProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D1575041CB1B27500EA395E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D1575061CB1B27500EA395E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -97,9 +101,10 @@
 			files = (
 				E1530D9E1ED382EA002A9002 /* SystemConfiguration.framework in Frameworks */,
 				E1530D991ED378F2002A9002 /* Rollbar.framework in Frameworks */,
-				CED9348B1E8466CE0017CF96 /* MBProgressHUD.framework in Frameworks */,
-				CED934881E8466A60017CF96 /* Core.framework in Frameworks */,
 				CED934891E8466A60017CF96 /* ReactiveSwift.framework in Frameworks */,
+				0CCF002A219208080061050C /* WolmoReactiveCore.framework in Frameworks */,
+				0CCF002C219208110061050C /* Wormholy.framework in Frameworks */,
+				0CCF002E219208180061050C /* WolmoCore.framework in Frameworks */,
 				9D6E405A1CB1B93A008CE558 /* ReactiveCocoa.framework in Frameworks */,
 				9D6E405B1CB1B93A008CE558 /* Result.framework in Frameworks */,
 			);
@@ -181,6 +186,9 @@
 		9D6E405F1CB1BA21008CE558 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0CCF002D219208180061050C /* WolmoCore.framework */,
+				0CCF002B219208110061050C /* Wormholy.framework */,
+				0CCF0029219208080061050C /* WolmoReactiveCore.framework */,
 				E1530D9D1ED382EA002A9002 /* SystemConfiguration.framework */,
 				E1530D981ED378F2002A9002 /* Rollbar.framework */,
 				CED9348A1E8466CE0017CF96 /* MBProgressHUD.framework */,
@@ -355,9 +363,10 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ReactiveCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ReactiveSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Core.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/MBProgressHUD.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/WolmoCore.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Rollbar.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Wormholy.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/WolmoReactiveCore.framework",
 			);
 			name = Carthage;
 			outputPaths = (
