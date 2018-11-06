@@ -1,5 +1,8 @@
 # Useful extensions
-github "Wolox/wolmo-core-ios" ~> 5.0.0
+github "Wolox/wolmo-core-ios" ~> 5.2.0
+
+# Reactive Core
+github "Wolox/wolmo-reactive-core-ios" ~> 1.1.0
 
 # Miscellaneous
 github "rollbar/rollbar-ios" "master"

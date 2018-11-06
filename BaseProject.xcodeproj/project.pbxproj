@@ -15,8 +15,8 @@
 		9D1575251CB1B27500EA395E /* BaseProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1575241CB1B27500EA395E /* BaseProjectUITests.swift */; };
 		9D1F7A711CBED81900E20BE5 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1F7A6F1CBED81900E20BE5 /* Nimble.framework */; };
 		9D1F7A721CBED81900E20BE5 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1F7A701CBED81900E20BE5 /* Quick.framework */; };
-		9D1F7A741CBED82900E20BE5 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9D1F7A6F1CBED81900E20BE5 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9D1F7A751CBED82900E20BE5 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9D1F7A701CBED81900E20BE5 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9D1F7A741CBED82900E20BE5 /* Nimble.framework in Carthage */ = {isa = PBXBuildFile; fileRef = 9D1F7A6F1CBED81900E20BE5 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9D1F7A751CBED82900E20BE5 /* Quick.framework in Carthage */ = {isa = PBXBuildFile; fileRef = 9D1F7A701CBED81900E20BE5 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9D6E405A1CB1B93A008CE558 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6E40551CB1B939008CE558 /* ReactiveCocoa.framework */; };
 		9D6E405B1CB1B93A008CE558 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6E40561CB1B93A008CE558 /* Result.framework */; };
 		CEB934DD1D21992100DF75C2 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB934DC1D21992100DF75C2 /* Environment.swift */; };
@@ -46,15 +46,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9D1F7A731CBED81F00E20BE5 /* CopyFiles */ = {
+		9D1F7A731CBED81F00E20BE5 /* Carthage */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9D1F7A741CBED82900E20BE5 /* Nimble.framework in CopyFiles */,
-				9D1F7A751CBED82900E20BE5 /* Quick.framework in CopyFiles */,
+				9D1F7A741CBED82900E20BE5 /* Nimble.framework in Carthage */,
+				9D1F7A751CBED82900E20BE5 /* Quick.framework in Carthage */,
 			);
+			name = Carthage;
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -241,7 +242,7 @@
 				9D1575111CB1B27500EA395E /* Sources */,
 				9D1575121CB1B27500EA395E /* Frameworks */,
 				9D1575131CB1B27500EA395E /* Resources */,
-				9D1F7A731CBED81F00E20BE5 /* CopyFiles */,
+				9D1F7A731CBED81F00E20BE5 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -363,7 +364,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 		9D6E405E1CB1B94C008CE558 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
