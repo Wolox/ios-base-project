@@ -7,7 +7,7 @@
 //
 
 import Rollbar
-import Core
+import WolmoCore
 import ReactiveSwift
 
 internal final class RollbarService {
