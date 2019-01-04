@@ -1,0 +1,46 @@
+# blank lines & spaces
+--blankLinesAtEndOfScope false
+--blankLinesAtStartOfScope true
+--blankLinesBetweenScopes true
+--blankLinesAroundMark false
+--consecutiveBlankLines true
+
+# imports
+--duplicateImports true
+--sortedImports true
+
+# redundant things
+--redundantBackticks true
+--redundantLet true
+--redundantLetError true
+--redundantParens true
+--redundantPattern true
+--redundantReturn true
+--redundantSelf true
+--redundantVoidReturnType true
+--redundantInit true
+--semicolons never
+
+# spaces
+--spaceAroundBraces true
+--spaceAroundComments true
+--spaceAroundGenerics true
+--spaceAroundOperators true
+--spaceAroundParens true
+--spaceInsideBraces true
+--spaceInsideBrackets true
+--spaceInsideComments true
+--spaceInsideGenerics true
+--spaceInsideParens true
+--consecutiveSpaces true
+
+--elseOnSameLine true
+--emptyBraces true
+--indent tabs
+--linebreakAtEndOfFile true
+
+--specifiers true
+--strongOutlets true
+--todos true
+--unusedArguments true
+--andOperator true

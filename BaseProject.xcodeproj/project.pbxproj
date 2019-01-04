@@ -233,6 +233,7 @@
 				9D1574FF1CB1B27500EA395E /* Resources */,
 				9D6E405D1CB1B93F008CE558 /* Carthage */,
 				9D6E405E1CB1B94C008CE558 /* SwiftLint */,
+				B8FCC88A21DFED8100E44ECB /* SwiftFormat */,
 			);
 			buildRules = (
 			);
@@ -388,6 +389,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ ! -z \"$RUNNING_ON_CI\" ]\nthen\n    echo \"SwiftLint run script has been disabled\"\n    exit 0\nfi\n\nif which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		B8FCC88A21DFED8100E44ECB /* SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftFormat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\nswiftformat .\nelse\necho \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
