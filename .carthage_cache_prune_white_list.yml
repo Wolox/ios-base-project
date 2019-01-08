@@ -1,3 +1,4 @@
-# File for whitelisting frameworks downloaded using carthage_cache: https://github.com/guidomb/carthage_cache
-"Core": "wolmo-core-ios"
+# File for whitelisting frameworks downloaded using carthage_cache: https://github.com/Wolox/carthage_cache
+"WolmoReactiveCore": "wolmo-reactive-core-ios"
+"WolmoCore": "wolmo-core-ios"
 "Rollbar": "rollbar-ios"

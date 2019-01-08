@@ -1,0 +1,53 @@
+#!/bin/bash
+
+echo ""
+echo "Enter the project old name: [BaseProject]"
+read old_name
+
+if [ -z "$old_name" ]
+then
+    old_name="BaseProject"
+fi
+
+echo ""
+echo "Enter the project new name:"
+read new_name
+
+echo ""
+echo " → Checking installation of Rename and Ack"
+
+if type rename &> /dev/null
+then
+    echo ""
+    echo " ✔ Rename already installed!"
+else
+    echo ""
+    echo " → Installing Rename..."
+    brew install rename
+fi
+
+if type ack &> /dev/null
+then
+    echo ""
+    echo " ✔ Ack already installed!"
+else
+    echo ""
+    echo " → Installing Ack..."
+    brew install ack
+fi
+
+echo ""
+echo " → Finding and renaming files..."
+#Find and reame every old_name appearance
+find . -name "$old_name*" -print0 -depth | xargs -0 rename -S "$old_name" "$new_name"
+ack --literal --files-with-matches "$old_name" | xargs sed -i "" "s/$old_name/$new_name/g"
+
+#Verify every old_name appearance has been renamed
+old_name_appeareances=$(ack --literal "$old_name")
+if [ "$old_name_appeareances" == "" ]
+then
+    #If this hasn't print out anything, you are good to go!
+    echo ""
+    echo " ✔ Succesfully renamed project to $new_name!"
+    echo ""
+fi
