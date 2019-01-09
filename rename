@@ -38,8 +38,13 @@ fi
 
 echo ""
 echo " → Finding and renaming files..."
-#Find and reame every old_name appearance
-find . -name "$old_name*" -print0 -depth | xargs -0 rename -S "$old_name" "$new_name"
+
+#Find and rename every old_name directory appearance
+find . -type d -name "$old_name*" -print0 | xargs -0 rename -S "$old_name" "$new_name"
+
+#Find and rename every old_name file appearance, differentiated these cases to cover things like oldname/oldname.swift
+find . -type f -name "$old_name*" -print0 | xargs -0 rename -S "$old_name" "$new_name"
+
 ack --literal --files-with-matches "$old_name" | xargs sed -i "" "s/$old_name/$new_name/g"
 
 #Verify every old_name appearance has been renamed
@@ -49,5 +54,9 @@ then
     #If this hasn't print out anything, you are good to go!
     echo ""
     echo " ✔ Succesfully renamed project to $new_name!"
+    echo ""
+else 
+    echo ""
+    echo " ✗ Some files couldn't be renamed to $new_name!"
     echo ""
 fi
