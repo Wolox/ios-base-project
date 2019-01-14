@@ -22,6 +22,14 @@
 		9D1F7A751CBED82900E20BE5 /* Quick.framework in Carthage */ = {isa = PBXBuildFile; fileRef = 9D1F7A701CBED81900E20BE5 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9D6E405A1CB1B93A008CE558 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6E40551CB1B939008CE558 /* ReactiveCocoa.framework */; };
 		9D6E405B1CB1B93A008CE558 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6E40561CB1B93A008CE558 /* Result.framework */; };
+		B83388D221E93AAC00085E26 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83388CA21E93AAC00085E26 /* Networking.framework */; };
+		B83388D321E93AAC00085E26 /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83388CB21E93AAC00085E26 /* KeychainSwift.framework */; };
+		B83388D421E93AAC00085E26 /* Curry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83388CC21E93AAC00085E26 /* Curry.framework */; };
+		B83388D521E93AAC00085E26 /* Argo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83388CD21E93AAC00085E26 /* Argo.framework */; };
+		B83388D621E93AAC00085E26 /* AlamofireNetworkActivityLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83388CE21E93AAC00085E26 /* AlamofireNetworkActivityLogger.framework */; };
+		B83388D721E93AAC00085E26 /* AlamofireNetworkActivityIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83388CF21E93AAC00085E26 /* AlamofireNetworkActivityIndicator.framework */; };
+		B83388D821E93AAC00085E26 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83388D021E93AAC00085E26 /* Alamofire.framework */; };
+		B83388D921E93AAC00085E26 /* Runes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83388D121E93AAC00085E26 /* Runes.framework */; };
 		CEB934DD1D21992100DF75C2 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB934DC1D21992100DF75C2 /* Environment.swift */; };
 		CED934891E8466A60017CF96 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED934871E8466A60017CF96 /* ReactiveSwift.framework */; };
 		E1530D991ED378F2002A9002 /* Rollbar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1530D981ED378F2002A9002 /* Rollbar.framework */; };
@@ -81,6 +89,14 @@
 		9D1F7A701CBED81900E20BE5 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		9D6E40551CB1B939008CE558 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		9D6E40561CB1B93A008CE558 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
+		B83388CA21E93AAC00085E26 /* Networking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Networking.framework; path = Carthage/Build/iOS/Networking.framework; sourceTree = "<group>"; };
+		B83388CB21E93AAC00085E26 /* KeychainSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainSwift.framework; path = Carthage/Build/iOS/KeychainSwift.framework; sourceTree = "<group>"; };
+		B83388CC21E93AAC00085E26 /* Curry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Curry.framework; path = Carthage/Build/iOS/Curry.framework; sourceTree = "<group>"; };
+		B83388CD21E93AAC00085E26 /* Argo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Argo.framework; path = Carthage/Build/iOS/Argo.framework; sourceTree = "<group>"; };
+		B83388CE21E93AAC00085E26 /* AlamofireNetworkActivityLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireNetworkActivityLogger.framework; path = Carthage/Build/iOS/AlamofireNetworkActivityLogger.framework; sourceTree = "<group>"; };
+		B83388CF21E93AAC00085E26 /* AlamofireNetworkActivityIndicator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireNetworkActivityIndicator.framework; path = Carthage/Build/iOS/AlamofireNetworkActivityIndicator.framework; sourceTree = "<group>"; };
+		B83388D021E93AAC00085E26 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		B83388D121E93AAC00085E26 /* Runes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Runes.framework; path = Carthage/Build/iOS/Runes.framework; sourceTree = "<group>"; };
 		CEB934DC1D21992100DF75C2 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		CEB934E11D21A49A00DF75C2 /* Alpha.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Alpha.xcconfig; sourceTree = "<group>"; };
 		CED934861E8466A60017CF96 /* Core.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Core.framework; path = Carthage/Build/iOS/Core.framework; sourceTree = "<group>"; };
@@ -107,6 +123,14 @@
 				0CCF002E219208180061050C /* WolmoCore.framework in Frameworks */,
 				9D6E405A1CB1B93A008CE558 /* ReactiveCocoa.framework in Frameworks */,
 				9D6E405B1CB1B93A008CE558 /* Result.framework in Frameworks */,
+				B83388D221E93AAC00085E26 /* Networking.framework in Frameworks */,
+				B83388D321E93AAC00085E26 /* KeychainSwift.framework in Frameworks */,
+				B83388D421E93AAC00085E26 /* Curry.framework in Frameworks */,
+				B83388D521E93AAC00085E26 /* Argo.framework in Frameworks */,
+				B83388D621E93AAC00085E26 /* AlamofireNetworkActivityLogger.framework in Frameworks */,
+				B83388D721E93AAC00085E26 /* AlamofireNetworkActivityIndicator.framework in Frameworks */,
+				B83388D821E93AAC00085E26 /* Alamofire.framework in Frameworks */,
+				B83388D921E93AAC00085E26 /* Runes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +210,14 @@
 		9D6E405F1CB1BA21008CE558 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B83388D021E93AAC00085E26 /* Alamofire.framework */,
+				B83388CF21E93AAC00085E26 /* AlamofireNetworkActivityIndicator.framework */,
+				B83388CE21E93AAC00085E26 /* AlamofireNetworkActivityLogger.framework */,
+				B83388CD21E93AAC00085E26 /* Argo.framework */,
+				B83388CC21E93AAC00085E26 /* Curry.framework */,
+				B83388CB21E93AAC00085E26 /* KeychainSwift.framework */,
+				B83388CA21E93AAC00085E26 /* Networking.framework */,
+				B83388D121E93AAC00085E26 /* Runes.framework */,
 				0CCF002D219208180061050C /* WolmoCore.framework */,
 				0CCF002B219208110061050C /* Wormholy.framework */,
 				0CCF0029219208080061050C /* WolmoReactiveCore.framework */,
@@ -367,6 +399,14 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Rollbar.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Wormholy.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/WolmoReactiveCore.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Networking.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/KeychainSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Curry.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Argo.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/AlamofireNetworkActivityLogger.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/AlamofireNetworkActivityIndicator.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Runes.framework",
 			);
 			name = Carthage;
 			outputPaths = (

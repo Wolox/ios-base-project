@@ -1,4 +1,6 @@
 # File for whitelisting frameworks downloaded using carthage_cache: https://github.com/Wolox/carthage_cache
 "WolmoReactiveCore": "wolmo-reactive-core-ios"
+"Networking": "wolmo-networking-ios"
+"KeychainSwift": "keychain-swift"
 "WolmoCore": "wolmo-core-ios"
 "Rollbar": "rollbar-ios"
