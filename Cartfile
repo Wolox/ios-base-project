@@ -1,5 +1,6 @@
 # Useful extensions
 github "Wolox/wolmo-core-ios" ~> 5.2.0
+github "Wolox/wolmo-networking-ios" ~> 1.1.0
 
 # Reactive Core
 github "Wolox/wolmo-reactive-core-ios" ~> 1.1.0
