@@ -1,8 +1,8 @@
-xcodeproj: ./BaseProject.xcodeproj
-scheme: BaseProject
+xcodeproj: ./WBooks.xcodeproj
+scheme: WBooks
 ignore:
-  - BaseProject/AppDelegate.swift
-  - BaseProject/Environment.swift
-  - BaseProject/Services/RollbarService.swift
-  - BaseProjectTests/*
-  - BaseProjectUITests/*
+  - WBooks/AppDelegate.swift
+  - WBooks/Environment.swift
+  - WBooks/Services/RollbarService.swift
+  - WBooksTests/*
+  - WBooksUITests/*

@@ -69,7 +69,7 @@ app:
   envs:
   - opts:
       is_expand: false
-    BITRISE_PROJECT_PATH: BaseProject.xcodeproj
+    BITRISE_PROJECT_PATH: WBooks.xcodeproj
   - opts:
       is_expand: false
-    BITRISE_SCHEME: BaseProject
+    BITRISE_SCHEME: WBooks
