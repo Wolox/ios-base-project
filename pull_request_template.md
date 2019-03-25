@@ -1,6 +1,6 @@
 ## Summary ##
 
-**Jira card**: https://jira.com/b/THE_PROJECT_BOARD/THE_CARD
+**Jira card**: https://wolox-support.atlassian.net/browse/THE_CARD
 
 A brief description of the pull request
 
