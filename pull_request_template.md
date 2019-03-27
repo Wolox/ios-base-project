@@ -1,20 +1,16 @@
 ## Summary ##
 
-**Trello card**: https://trello.com/b/THE_PROJECT_BOARD/THE_CARD
+**Jira card**: https://wolox-support.atlassian.net/browse/THE_CARD
 
 A brief description of the pull request
 
 ## Screenshots ##
 
-### iPhone 5c/5/5s
+### iPhone 5s
 
 Drag and drop screen shots
 
-### iPhone 6/7
-
-Drag and drop screen shots
-
-### iPhone 6+/7+
+### iPhone X/XS/XR
 
 Drag and drop screen shots
 
