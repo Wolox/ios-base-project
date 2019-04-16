@@ -40,7 +40,7 @@ If any of the previous commands fail please submit an [issue](%project-github-ur
 
 ## Scripts
 
-Inside the `script` folder there are several scripts to facilitate the development process. For up to date documentation of this scripts check [this](http://github.com/guidomb/ios-scripts) repository. The most relevant scripts are:
+Inside the `script` folder there are several scripts to facilitate the development process. For up to date documentation of this scripts check [this](https://github.com/Wolox/ios-scripts) repository. The most relevant scripts are:
 
   * `script/bootstrap`: Bootstraps the project for the first time.
   * `script/test`: Runs the project's tests
